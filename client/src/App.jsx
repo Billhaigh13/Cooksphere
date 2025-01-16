@@ -64,3 +64,8 @@ function App() {
 }
 
 export default App;
+
+//TODO: refactor to typescript
+//TODO: front end testing
+//TODO: FEAT: add redux
+//TODO: GENERAL: create diagram of component structure

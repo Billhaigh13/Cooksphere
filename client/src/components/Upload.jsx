@@ -199,6 +199,7 @@ export function Upload () {
   }
 
   // TODO: validation incomplete
+  //TODO: FEAT: complete form validation
   function validateFormData () {
     const newErrorState = {};
     for (const key of Object.keys(formState)) {
@@ -295,3 +296,6 @@ export function Upload () {
     </>
   );
 };
+
+//TODO: TEST add unit tests for upload functions
+//TODO: TEST add integration tests for upload

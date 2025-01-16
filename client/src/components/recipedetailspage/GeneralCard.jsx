@@ -19,7 +19,7 @@ export function GeneralCard ({recipe}) {
       setFavorite(isFavorite);
     }
   }, [currentUser]);
-
+//TODO: TEST add simple unit test here
   function formatCookingTime (time) {
     const minutes = time%60;
     const hours = (time-minutes)/60;

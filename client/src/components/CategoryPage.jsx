@@ -7,7 +7,7 @@ import { SortSelect } from './SortSelect';
 import { filterRecipes } from "../utils/filterRecipes";
 import { sortRecipes } from '../utils/sortRecipes';
 import { categories } from "../utils/imagePaths";
-
+//TODO: Write integration test for category page
 export function CategoryPage () {
   const { category } = useParams();
   const url = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${categories[category]}.jpg`;

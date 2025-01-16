@@ -1,17 +1,19 @@
-export function filterRecipes (recipes, filter) {
+export function filterRecipes(recipes, filter) {
   let filteredRecipes;
   // ratings
   const ratings = filter.ratings;
-  if (ratings === 'all') {
+  if (ratings === "all") {
     filteredRecipes = recipes;
   } else {
-    filteredRecipes = recipes.filter(recipe => recipe.rating >= parseInt(ratings));
+    filteredRecipes = recipes.filter(
+      (recipe) => recipe.rating >= parseInt(ratings)
+    );
   }
 
   // tags
   const tags = filter.tags;
   if (tags.length > 0) {
-    filteredRecipes = filteredRecipes.filter(filteredRecipe => {
+    filteredRecipes = filteredRecipes.filter((filteredRecipe) => {
       for (const tag of filteredRecipe.tags) {
         if (tags.includes(tag)) {
           return true;
@@ -27,16 +29,30 @@ export function filterRecipes (recipes, filter) {
     let quickRecipes = [];
     let moderateRecipes = [];
     let intensiveRecipes = [];
-    if (duration.includes('quick')) {
-      quickRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.cookingTimeInMinutes < 30);
+    if (duration.includes("quick")) {
+      quickRecipes = filteredRecipes.filter(
+        (filteredRecipe) => filteredRecipe.cookingTimeInMinutes < 30
+      );
     }
-    if (duration.includes('moderate')) {
-      moderateRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.cookingTimeInMinutes >= 30 && filteredRecipe.cookingTimeInMinutes <= 60);
+    if (duration.includes("moderate")) {
+      moderateRecipes = filteredRecipes.filter(
+        (filteredRecipe) =>
+          filteredRecipe.cookingTimeInMinutes >= 30 &&
+          filteredRecipe.cookingTimeInMinutes <= 60
+      );
     }
-    if (duration.includes('intensive')) {
-      intensiveRecipes = filteredRecipes.filter(filteredRecipe => filteredRecipe.cookingTimeInMinutes > 60);
+    if (duration.includes("intensive")) {
+      intensiveRecipes = filteredRecipes.filter(
+        (filteredRecipe) => filteredRecipe.cookingTimeInMinutes > 60
+      );
     }
-    filteredRecipes = [...quickRecipes, ...moderateRecipes, ...intensiveRecipes];
+    filteredRecipes = [
+      ...quickRecipes,
+      ...moderateRecipes,
+      ...intensiveRecipes,
+    ];
   }
   return filteredRecipes;
 }
+
+//TODO: TEST add unit test for this function

@@ -69,3 +69,4 @@ export default App;
 //TODO: front end testing
 //TODO: FEAT: add redux
 //TODO: GENERAL: create diagram of component structure
+//TODO: write end-to-end tests

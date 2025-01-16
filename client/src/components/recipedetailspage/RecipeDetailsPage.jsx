@@ -30,3 +30,5 @@ export function RecipeDetailsPage () {
     </>
   );
 };
+
+//TODO: add integration test for recipedetailspage

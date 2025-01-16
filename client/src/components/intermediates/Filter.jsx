@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { getTags } from "../utils/getTags";
-import { Checkbox } from "./common/Checkbox";
-import { Radiobutton } from "./common/Radiobutton";
+import { getTags } from "../../utils/getTags";
+import { Checkbox } from "../common/Checkbox";
+import { Radiobutton } from "../common/Radiobutton";
 
 export function Filter ({recipes, updateFilter}) {
   const initialFilterState = {tags: [], time: [], ratings: 'all'}

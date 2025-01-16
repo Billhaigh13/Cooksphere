@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Ingredient } from "./Ingredient";
-import { Input } from "./common/Input";
+import { Input } from "../common/Input";
 import { Instruction } from "./Instruction";
-import { uploadImage, uploadRecipe, updateUploaded } from "../ApiClient";
+import { uploadImage, uploadRecipe, updateUploaded } from "../../ApiClient";
 import { FileUpload } from "./FileUpload";
-import { AuthContext } from '../App';
+import { AuthContext } from '../../App';
 
 // ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
 export function Upload () {

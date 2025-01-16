@@ -1,4 +1,4 @@
-import { Rating } from '../Rating';
+import { Rating } from '../common/Rating';
 import { Link } from 'react-router';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from '../../App';

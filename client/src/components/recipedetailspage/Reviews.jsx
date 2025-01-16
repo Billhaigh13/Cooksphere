@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Rating } from "../Rating";
+import { Rating } from "../common/Rating";
 import { AuthContext } from "../../App";
 import { rateAndReview } from "../../ApiClient";
 import { useParams } from "react-router";

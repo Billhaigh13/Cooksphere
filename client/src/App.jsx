@@ -1,15 +1,15 @@
 import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { getCategories, getLatestRecipes, login } from './ApiClient';
-import { CategoryList } from './components/CategoryList';
-import { Hero } from './components/Hero';
+import { CategoryList } from './components/lists/CategoryList';
+import { Hero } from './components/lists/Hero';
 import { Navbar } from './components/Navbar';
-import { CategoryPage } from './components/CategoryPage';
+import { CategoryPage } from './components/intermediates/CategoryPage';
 import { RecipeDetailsPage } from './components/recipedetailspage/RecipeDetailsPage';
-import { RecipeList } from './components/RecipeList';
+import { RecipeList } from './components/lists/RecipeList';
 import { Routes, Route } from "react-router";
-import { Profile } from './components/Profile';
-import { SearchResultPage } from './components/SearchResultPage';
+import { Profile } from './components/intermediates/Profile';
+import { SearchResultPage } from './components/intermediates/SearchResultPage';
 
 export const AuthContext = createContext(null);
 function App() {

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Popup } from "./Popup";
-import { AuthContext } from '../App';
+import { Popup } from "../uploadpage/Popup";
+import { AuthContext } from '../../App';
 import { RecipeResults } from "./RecipeResults";
 
 export function Profile () {

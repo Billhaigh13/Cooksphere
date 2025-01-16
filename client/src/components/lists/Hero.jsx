@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from 'react-router';
-import { heroImageIds } from "../utils/imagePaths";
+import { heroImageIds } from "../../utils/imagePaths";
 
 export function Hero () {
   const imageIds = heroImageIds;

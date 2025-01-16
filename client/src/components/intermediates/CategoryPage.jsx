@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getRecipes } from '../ApiClient';
+import { getRecipes } from '../../ApiClient';
 import { RecipeResults } from './RecipeResults';
 import { Filter } from './Filter';
 import { SortSelect } from './SortSelect';
-import { filterRecipes } from "../utils/filterRecipes";
-import { sortRecipes } from '../utils/sortRecipes';
-import { categories } from "../utils/imagePaths";
+import { filterRecipes } from "../../utils/filterRecipes";
+import { sortRecipes } from '../../utils/sortRecipes';
+import { categories } from "../../utils/imagePaths";
 //TODO: Write integration test for category page
 export function CategoryPage () {
   const { category } = useParams();

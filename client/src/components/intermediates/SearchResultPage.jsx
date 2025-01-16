@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router"
 import { RecipeResults } from "./RecipeResults";
 import { useEffect, useState } from "react";
-import { searchRecipes } from "../ApiClient";
+import { searchRecipes } from "../../ApiClient";
 import { Filter } from "./Filter";
-import { filterRecipes } from "../utils/filterRecipes";
-import { sortRecipes } from '../utils/sortRecipes';
+import { filterRecipes } from "../../utils/filterRecipes";
+import { sortRecipes } from '../../utils/sortRecipes';
 import { SortSelect } from "./SortSelect";
 
 export function SearchResultPage () {

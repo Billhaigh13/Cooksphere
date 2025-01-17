@@ -1,5 +1,5 @@
 'use strict';
-import Category from './../models/category.js';
+import Category from '../models/category.js';
 
 const getAllCategories = async (req, res) => {
   try {

@@ -2,9 +2,9 @@
 import bcrypt from "bcrypt";
 import mongoose from 'mongoose';
 import Category from '../models/category.js';
-import Recipe from './../models/recipe.js';
-import User from './../models/user.js';
-import { categories as categoryImages } from "../../client/src/utils/imagePaths.js";
+import Recipe from '../models/recipe.js';
+import User from '../models/user.js';
+import { categories as categoryImages } from "../../../client/src/utils/imagePaths.js";
 
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 const alphabet = [

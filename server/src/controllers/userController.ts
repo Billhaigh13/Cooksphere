@@ -1,5 +1,5 @@
 'use strict';
-import User from './../models/user.js';
+import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 
 const login = async (req, res) => {

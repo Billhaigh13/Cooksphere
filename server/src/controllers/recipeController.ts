@@ -1,5 +1,5 @@
 'use strict';
-import Recipe from './../models/recipe.js';
+import Recipe from '../models/recipe.js';
 
 const getRecipes = async (req, res) => {
   try {

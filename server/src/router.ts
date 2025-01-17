@@ -8,12 +8,12 @@ import {
   getLastAddedRecipes,
   postRecipe,
   postReview,
-} from "./controllers/recipeController.js";
+} from "./controllers/recipeController";
 import {
   login,
   updateUploaded,
   updateFavorites,
-} from "./controllers/userController.js";
+} from "./controllers/userController";
 
 const router: Router = express.Router();
 

@@ -14,8 +14,8 @@ const alphabet = [
   'y', 'z', '1', '2', '3', '4', '5', '6',
   '7', '8', '9'
 ];
-const recipes = [];
-const categories = [];
+const recipes: any[] = [];
+const categories: string[] = [];
 const cloudinaryUrl = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/`;
 
 const clearDatabase = async () => {
@@ -25,7 +25,7 @@ const clearDatabase = async () => {
   console.log('MongoDB cleared!');
 };
 
-const formatRecipe = (recipe) => {
+const formatRecipe = (recipe: any) => {
   if (!categories.includes(recipe.strCategory)) {
     categories.push(recipe.strCategory);
   }
@@ -48,9 +48,9 @@ const formatRecipe = (recipe) => {
     name: recipe.strMeal,
     // TODO area: recipe.strArea,
     category: recipe.strCategory,
-    instructions: recipe.strInstructions.split('\r\n').filter(instr => instr.trim() !== ''),
+    instructions: recipe.strInstructions.split('\r\n').filter((instr: string) => instr.trim() !== ''),
     image: recipe.strMealThumb,
-    tags: recipe.strTags ? recipe.strTags.split(',').map(tag => tag.trim()) : [],
+    tags: recipe.strTags ? recipe.strTags.split(',').map((tag: string) => tag.trim()) : [],
     ingredients: ingredients,
     cookingTimeInMinutes: 45,
   };
@@ -61,13 +61,13 @@ const fillDatabase = async () => {
     const response = await fetch(`${BASE_URL}/search.php?f=${letter}`);
     const data = await response.json();
     if (data.meals) {
-      data.meals.map(meal => recipes.push(meal));
+      data.meals.map((meal: any) => recipes.push(meal));
     }
   }
 
   const formattedRecipes = recipes.map(recipe => formatRecipe(recipe));
   await Recipe.insertMany(formattedRecipes);
-  const formattedCategories = categories.map(category => ({name: category, image: `${cloudinaryUrl}${categoryImages[category]}.jpg`}));
+  const formattedCategories = categories.map(category => ({name: category, image: `${cloudinaryUrl}${categoryImages[category as keyof typeof categoryImages]}.jpg`}));
   await Category.insertMany(formattedCategories);
   const user = {
     firstname: 'Zappe',

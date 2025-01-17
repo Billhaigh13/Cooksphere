@@ -3,17 +3,17 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router";
 import { AuthContext } from "../../App";
 import { mocks } from "../mocks";
-import { GeneralCard } from "../../components/recipedetailspage/GeneralCard";
+import { RecipeList } from "../../components/lists/RecipeList";
 
-describe("GeneralCard component test", () => {
-  test("Should correctly render the GeneralCard component", () => {
+describe("RecipeList component test", () => {
+  test("Should correctly render the RecipeList component", () => {
     render(
       <BrowserRouter>
       <AuthContext.Provider value={mocks.currentUser}>
-        <GeneralCard recipe={mocks.recipe} />
+        <RecipeList title={'New Added Recipes'} recipes={mocks.recipes}/>
       </AuthContext.Provider>
       </BrowserRouter>
     )
-    expect(screen.getByTestId("recipe_img").alt).toBe("recipe image")
+    expect(screen.getByText("New Added Recipes")).toBeInTheDocument();
   })
 })

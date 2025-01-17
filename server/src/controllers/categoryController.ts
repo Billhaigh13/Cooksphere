@@ -1,7 +1,8 @@
 'use strict';
-import Category from './../models/category.js';
+import Category from '../models/category';
+import { Request, Response } from 'express';
 
-const getAllCategories = async (req, res) => {
+const getAllCategories = async (req: Request, res: Response): Promise<any> => {
   try {
     const categories = await Category.find();
     return res.send(categories);

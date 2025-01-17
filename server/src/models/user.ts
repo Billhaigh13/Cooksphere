@@ -1,4 +1,4 @@
-import mongoose from './index.js';
+import mongoose from './index';
 
 const userSchema = new mongoose.Schema({
   firstname: {type: String, required: true},

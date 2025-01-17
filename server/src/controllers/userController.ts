@@ -1,8 +1,9 @@
 'use strict';
-import User from './../models/user.js';
+import User from '../models/user';
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
-const login = async (req, res) => {
+const login = async (req: Request, res: Response): Promise<any> => {
   try {
     const {email, password} = req.body;
     if (!email || !password) {
@@ -25,7 +26,7 @@ const login = async (req, res) => {
   }
 };
 
-const updateUploaded = async (req, res) => {
+const updateUploaded = async (req: Request, res: Response): Promise<any> => {
   try {
     const {user, recipe} = req.body;
     if (!user) {
@@ -35,6 +36,10 @@ const updateUploaded = async (req, res) => {
     }
 
     const userDB = await User.findOne({email: user.email});
+    if (!userDB) {
+      return res.status(404).send({ error: { message: 'User not found!', code: 404 } });
+    }
+
     userDB.uploadedRecipes.push(recipe);
     await userDB.save();
     res.send(userDB);
@@ -44,7 +49,7 @@ const updateUploaded = async (req, res) => {
   }
 };
 
-const updateFavorites = async (req, res) => {
+const updateFavorites = async (req: Request, res: Response): Promise<any> => {
   try {
     const {user, recipe, favorite} = req.body;
     if (!user) {
@@ -54,6 +59,9 @@ const updateFavorites = async (req, res) => {
     }
 
     const userDB = await User.findOne({email: user.email});
+    if (!userDB) {
+      return res.status(404).send({ error: { message: 'User not found!', code: 404 } });
+    }
     if (favorite) {
       userDB.favoriteRecipes.push(recipe);
     } else {

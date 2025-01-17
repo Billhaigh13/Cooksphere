@@ -1,13 +1,14 @@
 'use strict';
-import Recipe from './../models/recipe.js';
+import Recipe from '../models/recipe';
+import { Request, Response } from 'express';
 
-const getRecipes = async (req, res) => {
+const getRecipes = async (req: Request, res: Response): Promise<any> => {
   try {
     if (!req.query) {
       const recipes = await Recipe.find();
       return res.send(recipes);
     } else {
-      const searchQuery = req.query['q'];
+      const searchQuery = req.query.q as string;
       const recipes = await Recipe.find({$text: {$search: searchQuery}});
       return res.send(recipes);
     }
@@ -17,7 +18,7 @@ const getRecipes = async (req, res) => {
   }
 };
 
-const getRecipe = async (req, res) => {
+const getRecipe = async (req: Request, res: Response): Promise<any> => {
   try {
     const id = req.params.recipeId;
     if (!id) {
@@ -31,7 +32,7 @@ const getRecipe = async (req, res) => {
   }
 };
 
-const getRecipesByCategory = async (req, res) => {
+const getRecipesByCategory = async (req: Request, res: Response): Promise<any> => {
   try {
     const category = req.params.category;
     if (!category) {
@@ -45,7 +46,7 @@ const getRecipesByCategory = async (req, res) => {
   }
 };
 
-const getLastAddedRecipes = async (req, res) => {
+const getLastAddedRecipes = async (req: Request, res: Response): Promise<any> => {
   try {
     const recipes = await Recipe.find().sort({ createdAt: -1 }).limit(10);
     return res.send(recipes);
@@ -55,7 +56,7 @@ const getLastAddedRecipes = async (req, res) => {
   }
 };
 
-const postRecipe = async (req, res) => {
+const postRecipe = async (req: Request, res: Response): Promise<any> => {
   try {
     const body = req.body;
     if (!body) {
@@ -69,7 +70,7 @@ const postRecipe = async (req, res) => {
   }
 };
 
-const postReview = async (req, res) => {
+const postReview = async (req: Request, res: Response): Promise<any> => {
   try {
     const {rating, message} = req.body;
     if (!rating && !message) {
@@ -80,6 +81,9 @@ const postReview = async (req, res) => {
       return res.status(400).send({error: {message: 'No recipe id provided!', code: 400}});
     }
     const recipe = await Recipe.findOne({_id: id});
+    if (!recipe) {
+      return res.status(404).send({ error: { message: 'Recipe not found!', code: 404 } });
+    }
     const oldRating = recipe.rating;
 
     recipe.reviews.push(req.body);

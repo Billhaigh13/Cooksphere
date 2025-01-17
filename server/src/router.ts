@@ -1,6 +1,6 @@
 "use strict";
-import express from "express";
-import { getAllCategories } from "./controllers/categoryController.js";
+import express, { Router } from "express";
+import { getAllCategories } from "./controllers/categoryController";
 import {
   getRecipes,
   getRecipe,
@@ -15,7 +15,7 @@ import {
   updateFavorites,
 } from "./controllers/userController.js";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 //TODO: Split routing into separate routing files
 //TODO: Consider changing some routes for clarity

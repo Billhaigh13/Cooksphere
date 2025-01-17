@@ -1,8 +1,9 @@
 'use strict';
-import User from '../models/user.js';
+import User from '../models/user';
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
-const login = async (req, res) => {
+const login = async (req: Request, res: Response): Promise<any> => {
   try {
     const {email, password} = req.body;
     if (!email || !password) {
@@ -25,7 +26,7 @@ const login = async (req, res) => {
   }
 };
 
-const updateUploaded = async (req, res) => {
+const updateUploaded = async (req: Request, res: Response): Promise<any> => {
   try {
     const {user, recipe} = req.body;
     if (!user) {
@@ -44,7 +45,7 @@ const updateUploaded = async (req, res) => {
   }
 };
 
-const updateFavorites = async (req, res) => {
+const updateFavorites = async (req: Request, res: Response): Promise<any> => {
   try {
     const {user, recipe, favorite} = req.body;
     if (!user) {

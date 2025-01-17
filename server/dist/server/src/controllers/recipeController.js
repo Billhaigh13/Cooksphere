@@ -13,16 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postReview = exports.postRecipe = exports.getLastAddedRecipes = exports.getRecipesByCategory = exports.getRecipe = exports.getRecipes = void 0;
-const recipe_js_1 = __importDefault(require("../models/recipe.js"));
+const recipe_1 = __importDefault(require("../models/recipe"));
 const getRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!req.query) {
-            const recipes = yield recipe_js_1.default.find();
+            const recipes = yield recipe_1.default.find();
             return res.send(recipes);
         }
         else {
             const searchQuery = req.query['q'];
-            const recipes = yield recipe_js_1.default.find({ $text: { $search: searchQuery } });
+            const recipes = yield recipe_1.default.find({ $text: { $search: searchQuery } });
             return res.send(recipes);
         }
     }
@@ -38,7 +38,7 @@ const getRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!id) {
             return res.status(400).send({ error: { message: 'No recipe id provided!', code: 400 } });
         }
-        const recipe = yield recipe_js_1.default.findOne({ _id: id });
+        const recipe = yield recipe_1.default.findOne({ _id: id });
         return res.send(recipe);
     }
     catch (e) {
@@ -53,7 +53,7 @@ const getRecipesByCategory = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!category) {
             return res.status(400).send({ error: { message: 'No category provided!', code: 400 } });
         }
-        const recipes = yield recipe_js_1.default.find({ category });
+        const recipes = yield recipe_1.default.find({ category });
         return res.send(recipes);
     }
     catch (e) {
@@ -64,7 +64,7 @@ const getRecipesByCategory = (req, res) => __awaiter(void 0, void 0, void 0, fun
 exports.getRecipesByCategory = getRecipesByCategory;
 const getLastAddedRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const recipes = yield recipe_js_1.default.find().sort({ createdAt: -1 }).limit(10);
+        const recipes = yield recipe_1.default.find().sort({ createdAt: -1 }).limit(10);
         return res.send(recipes);
     }
     catch (e) {
@@ -79,7 +79,7 @@ const postRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!body) {
             return res.status(400).send({ error: { message: 'Request body missing!', code: 400 } });
         }
-        const recipe = yield recipe_js_1.default.create(body);
+        const recipe = yield recipe_1.default.create(body);
         return res.status(201).send(recipe);
     }
     catch (e) {
@@ -98,7 +98,7 @@ const postReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!id) {
             return res.status(400).send({ error: { message: 'No recipe id provided!', code: 400 } });
         }
-        const recipe = yield recipe_js_1.default.findOne({ _id: id });
+        const recipe = yield recipe_1.default.findOne({ _id: id });
         const oldRating = recipe.rating;
         recipe.reviews.push(req.body);
         const newRating = parseFloat(((oldRating + rating) / recipe.reviews.length).toFixed(2));

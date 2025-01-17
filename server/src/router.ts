@@ -1,6 +1,6 @@
 "use strict";
 import express, { Router } from "express";
-import { getAllCategories } from "./controllers/categoryController.js";
+import { getAllCategories } from "./controllers/categoryController";
 import {
   getRecipes,
   getRecipe,

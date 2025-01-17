@@ -1,7 +1,8 @@
 'use strict';
-import Recipe from '../models/recipe.js';
+import Recipe from '../models/recipe';
+import { Request, Response } from 'express';
 
-const getRecipes = async (req, res) => {
+const getRecipes = async (req: Request, res: Response): Promise<any> => {
   try {
     if (!req.query) {
       const recipes = await Recipe.find();
@@ -17,7 +18,7 @@ const getRecipes = async (req, res) => {
   }
 };
 
-const getRecipe = async (req, res) => {
+const getRecipe = async (req: Request, res: Response): Promise<any> => {
   try {
     const id = req.params.recipeId;
     if (!id) {
@@ -31,7 +32,7 @@ const getRecipe = async (req, res) => {
   }
 };
 
-const getRecipesByCategory = async (req, res) => {
+const getRecipesByCategory = async (req: Request, res: Response): Promise<any> => {
   try {
     const category = req.params.category;
     if (!category) {
@@ -45,7 +46,7 @@ const getRecipesByCategory = async (req, res) => {
   }
 };
 
-const getLastAddedRecipes = async (req, res) => {
+const getLastAddedRecipes = async (req: Request, res: Response): Promise<any> => {
   try {
     const recipes = await Recipe.find().sort({ createdAt: -1 }).limit(10);
     return res.send(recipes);
@@ -55,7 +56,7 @@ const getLastAddedRecipes = async (req, res) => {
   }
 };
 
-const postRecipe = async (req, res) => {
+const postRecipe = async (req: Request, res: Response): Promise<any> => {
   try {
     const body = req.body;
     if (!body) {
@@ -69,7 +70,7 @@ const postRecipe = async (req, res) => {
   }
 };
 
-const postReview = async (req, res) => {
+const postReview = async (req: Request, res: Response): Promise<any> => {
   try {
     const {rating, message} = req.body;
     if (!rating && !message) {

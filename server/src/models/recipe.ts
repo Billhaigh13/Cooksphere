@@ -1,4 +1,4 @@
-import mongoose from './index.js';
+import mongoose from './index';
 
 const recipeSchema = new mongoose.Schema({
   name: {type: String, required: true},

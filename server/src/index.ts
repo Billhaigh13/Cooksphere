@@ -1,7 +1,7 @@
 "use strict";
 import cors from "cors";
 import express from "express";
-import router from "./router.js";
+import router from "./router";
 
 const app: express.Express = express();
 const PORT: number = 3000;

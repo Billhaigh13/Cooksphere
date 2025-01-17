@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCategories = void 0;
-const category_js_1 = __importDefault(require("../models/category.js"));
+const category_1 = __importDefault(require("../models/category"));
 const getAllCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const categories = yield category_js_1.default.find();
+        const categories = yield category_1.default.find();
         return res.send(categories);
     }
     catch (e) {

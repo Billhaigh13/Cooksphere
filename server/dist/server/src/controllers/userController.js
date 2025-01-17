@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFavorites = exports.updateUploaded = exports.login = void 0;
-const user_js_1 = __importDefault(require("../models/user.js"));
+const user_1 = __importDefault(require("../models/user"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -21,7 +21,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!email || !password) {
             return res.status(401).send({ error: { message: 'Missing credentials!', code: 401 } });
         }
-        const user = yield user_js_1.default.findOne({ email }).populate('uploadedRecipes').populate('favoriteRecipes');
+        const user = yield user_1.default.findOne({ email }).populate('uploadedRecipes').populate('favoriteRecipes');
         if (!user) {
             return res.status(401).send({ error: 'Wrong credentials' });
         }
@@ -47,7 +47,7 @@ const updateUploaded = (req, res) => __awaiter(void 0, void 0, void 0, function*
         else if (!recipe) {
             return res.status(400).send({ error: { message: 'Missing recipe!', code: 400 } });
         }
-        const userDB = yield user_js_1.default.findOne({ email: user.email });
+        const userDB = yield user_1.default.findOne({ email: user.email });
         userDB.uploadedRecipes.push(recipe);
         yield userDB.save();
         res.send(userDB);
@@ -67,7 +67,7 @@ const updateFavorites = (req, res) => __awaiter(void 0, void 0, void 0, function
         else if (!recipe) {
             return res.status(400).send({ error: { message: 'Missing recipe!', code: 400 } });
         }
-        const userDB = yield user_js_1.default.findOne({ email: user.email });
+        const userDB = yield user_1.default.findOne({ email: user.email });
         if (favorite) {
             userDB.favoriteRecipes.push(recipe);
         }

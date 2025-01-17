@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const category_js_1 = __importDefault(require("../models/category.js"));
-const recipe_js_1 = __importDefault(require("../models/recipe.js"));
-const user_js_1 = __importDefault(require("../models/user.js"));
+const category_1 = __importDefault(require("../models/category"));
+const recipe_1 = __importDefault(require("../models/recipe"));
+const user_1 = __importDefault(require("../models/user"));
 const imagePaths_js_1 = require("../../../client/src/utils/imagePaths.js");
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 const alphabet = [
@@ -30,9 +30,9 @@ const recipes = [];
 const categories = [];
 const cloudinaryUrl = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/`;
 const clearDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield recipe_js_1.default.deleteMany();
-    yield category_js_1.default.deleteMany();
-    yield user_js_1.default.deleteMany();
+    yield recipe_1.default.deleteMany();
+    yield category_1.default.deleteMany();
+    yield user_1.default.deleteMany();
     console.log('MongoDB cleared!');
 });
 const formatRecipe = (recipe) => {
@@ -74,9 +74,9 @@ const fillDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     const formattedRecipes = recipes.map(recipe => formatRecipe(recipe));
-    yield recipe_js_1.default.insertMany(formattedRecipes);
+    yield recipe_1.default.insertMany(formattedRecipes);
     const formattedCategories = categories.map(category => ({ name: category, image: `${cloudinaryUrl}${imagePaths_js_1.categories[category]}.jpg` }));
-    yield category_js_1.default.insertMany(formattedCategories);
+    yield category_1.default.insertMany(formattedCategories);
     const user = {
         firstname: 'Zappe',
         lastname: 'Thomson',
@@ -85,7 +85,7 @@ const fillDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     };
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(user.password, salt);
-    yield user_js_1.default.create(Object.assign(Object.assign({}, user), { password: hashedPassword }));
+    yield user_1.default.create(Object.assign(Object.assign({}, user), { password: hashedPassword }));
     console.log('MongoDB filled successfully!');
 });
 (() => __awaiter(void 0, void 0, void 0, function* () {

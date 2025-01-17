@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_js_1 = __importDefault(require("./index.js"));
-const recipeSchema = new index_js_1.default.Schema({
+const index_1 = __importDefault(require("./index"));
+const recipeSchema = new index_1.default.Schema({
     name: { type: String, required: true },
     category: { type: String, required: true },
     // TODO area: str  (needed? maybe for search)
@@ -17,5 +17,5 @@ const recipeSchema = new index_js_1.default.Schema({
     reviews: { type: [{ author: String, message: String, rating: Number, timestamp: Date }], default: [] },
 }, { timestamps: true });
 recipeSchema.index({ name: 'text', category: 'text', tags: 'text' });
-const Recipe = index_js_1.default.model('Recipe', recipeSchema);
+const Recipe = index_1.default.model('Recipe', recipeSchema);
 exports.default = Recipe;

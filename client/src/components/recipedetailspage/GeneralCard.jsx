@@ -37,7 +37,7 @@ export function GeneralCard ({recipe}) {
     <>
       <div className='col-span-full h-[22rem]'>
         <div className='h-full flex items-center relative'>
-          <img src={recipe.image} alt="recipe image" className='h-[22rem] max-w-[22rem] rounded-xl shadow_2 absolute'/>
+          <img src={recipe.image} alt="recipe image" className='h-[22rem] max-w-[22rem] rounded-xl shadow_2 absolute' data-testid="recipe_img" />
           <div className='bg-brown py-4 pr-8 pl-16 rounded-xl flex flex-col justify-between h-52 shadow_2 w-full ml-[20rem]'>
             <div>
               <div className='flex items-center gap-4'>

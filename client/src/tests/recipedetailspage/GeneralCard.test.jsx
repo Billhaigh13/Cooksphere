@@ -2,18 +2,18 @@ import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router";
 import { AuthContext } from "../../App";
-import { Upload } from "../../components/uploadpage/Upload";
+import { GeneralCard } from "../../components/recipedetailspage/GeneralCard";
 import { mocks } from "../mocks";
 
-describe("Upload component test", () => {
-  test("Should correctly render the upload component", () => {
+describe("GeneralCard component test", () => {
+  test("Should correctly render the GeneralCard component", () => {
     render(
       <BrowserRouter>
       <AuthContext.Provider value={mocks.currentUser}>
-        <Upload />
+        <GeneralCard recipe={mocks.recipe} />
       </AuthContext.Provider>
       </BrowserRouter>
-    );
-    expect(screen.getByText("Upload Recipe")).toBeInTheDocument();
+    )
+    expect(screen.getByTestId("recipe_img").alt).toBe("recipe image")
   })
 })

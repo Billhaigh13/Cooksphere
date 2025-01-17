@@ -36,6 +36,10 @@ const updateUploaded = async (req: Request, res: Response): Promise<any> => {
     }
 
     const userDB = await User.findOne({email: user.email});
+    if (!userDB) {
+      return res.status(404).send({ error: { message: 'User not found!', code: 404 } });
+    }
+
     userDB.uploadedRecipes.push(recipe);
     await userDB.save();
     res.send(userDB);
@@ -55,6 +59,9 @@ const updateFavorites = async (req: Request, res: Response): Promise<any> => {
     }
 
     const userDB = await User.findOne({email: user.email});
+    if (!userDB) {
+      return res.status(404).send({ error: { message: 'User not found!', code: 404 } });
+    }
     if (favorite) {
       userDB.favoriteRecipes.push(recipe);
     } else {

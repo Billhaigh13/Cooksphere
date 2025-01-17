@@ -21,7 +21,7 @@ const getRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return res.send(recipes);
         }
         else {
-            const searchQuery = req.query['q'];
+            const searchQuery = req.query.q;
             const recipes = yield recipe_1.default.find({ $text: { $search: searchQuery } });
             return res.send(recipes);
         }
@@ -99,7 +99,7 @@ const postReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return res.status(400).send({ error: { message: 'No recipe id provided!', code: 400 } });
         }
         const recipe = yield recipe_1.default.findOne({ _id: id });
-        const oldRating = recipe.rating;
+        const oldRating = recipe.rating || 0;
         recipe.reviews.push(req.body);
         const newRating = parseFloat(((oldRating + rating) / recipe.reviews.length).toFixed(2));
         recipe.rating = newRating;

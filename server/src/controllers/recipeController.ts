@@ -8,7 +8,7 @@ const getRecipes = async (req: Request, res: Response): Promise<any> => {
       const recipes = await Recipe.find();
       return res.send(recipes);
     } else {
-      const searchQuery = req.query['q'];
+      const searchQuery = req.query.q as string;
       const recipes = await Recipe.find({$text: {$search: searchQuery}});
       return res.send(recipes);
     }
@@ -81,6 +81,9 @@ const postReview = async (req: Request, res: Response): Promise<any> => {
       return res.status(400).send({error: {message: 'No recipe id provided!', code: 400}});
     }
     const recipe = await Recipe.findOne({_id: id});
+    if (!recipe) {
+      return res.status(404).send({ error: { message: 'Recipe not found!', code: 404 } });
+    }
     const oldRating = recipe.rating;
 
     recipe.reviews.push(req.body);

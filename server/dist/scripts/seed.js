@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const category_js_1 = __importDefault(require("../src/models/category.js"));
-const recipe_js_1 = __importDefault(require("../src/models/recipe.js"));
-const user_js_1 = __importDefault(require("../src/models/user.js"));
-const imagePaths_js_1 = require("../../client/src/utils/imagePaths.js");
+const category_js_1 = __importDefault(require("../models/category.js"));
+const recipe_js_1 = __importDefault(require("../models/recipe.js"));
+const user_js_1 = __importDefault(require("../models/user.js"));
+const imagePaths_js_1 = require("../client/src/utils/imagePaths.js");
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 const alphabet = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',

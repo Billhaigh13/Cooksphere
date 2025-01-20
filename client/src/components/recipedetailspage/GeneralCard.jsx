@@ -11,13 +11,10 @@ export function GeneralCard ({recipe}) {
 
   useEffect(() => {
     if (currentUser.favoriteRecipes) {
-      // console.log(favorite)
-      // console.log(currentUser)
       const isFavorite = currentUser.favoriteRecipes.some(
         favoriteRecipe => favoriteRecipe._id === recipe._id
       );
       setFavorite(isFavorite);
-      // console.log(favorite)
     }
   }, [currentUser]);
 //TODO: TEST add simple unit test here

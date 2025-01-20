@@ -43,21 +43,10 @@ describe("GeneralCard component test", () => {
       expect(updateFavorites).toHaveBeenCalledWith(mocks.currentUser, mocks.recipe, true)
     })
     expect(favButton).toHaveTextContent('Remove from favorites')
+    fireEvent.click(favButton)
+    await waitFor(() => {
+      expect(updateFavorites).toHaveBeenCalledWith(mocks.currentUser, mocks.recipe, false)
+    })
+    expect(favButton).toHaveTextContent('Add to favorites')
   })
-  // test("Should remove from favorites if a favorite recipe", async () => {
-  //   render(
-  //     <BrowserRouter>
-  //     <AuthContext.Provider value={mocks.userWithFavorite}>
-  //       <GeneralCard recipe={mocks.recipe} />
-  //     </AuthContext.Provider>
-  //     </BrowserRouter>
-  //   )
-  // expect(screen.getByText('Remove from favorites')).toBeInTheDocument();
-  // const favButton = screen.getByTestId("favButton");
-  // fireEvent.click(favButton)
-  // await waitFor(() => {
-  //   expect(updateFavorites).toHaveBeenCalledWith(mocks.currentUser, mocks.recipe, false)
-  // })
-  // expect(favButton).toHaveTextContent('Add to favorites')
-  // })
 })

@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(router);
 
 beforeAll(async () => {
-  const uri = "mongodb://127.0.0.1:27017/cooksphere_test";
+  const uri = "mongodb://127.0.0.1:27017/test";
   await mongoose.connect(uri);
 });
 

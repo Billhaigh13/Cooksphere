@@ -11,8 +11,6 @@ export function GeneralCard ({recipe}) {
 
   useEffect(() => {
     if (currentUser.favoriteRecipes) {
-      console.log(favorite)
-      console.log(currentUser)
       const isFavorite = currentUser.favoriteRecipes.some(
         favoriteRecipe => favoriteRecipe._id === recipe._id
       );
@@ -50,7 +48,7 @@ export function GeneralCard ({recipe}) {
             </div>
             <div className='flex justify-between'>
               <Rating rating={recipe.rating}/>
-              <button className='flex bg-orange text-white hover:bg-deeporange items-center gap-2 rounded-md px-2 py-1 uppercase text-sm' onClick={handleFavorite}>
+              <button data-testid="favButton" className='flex bg-orange text-white hover:bg-deeporange items-center gap-2 rounded-md px-2 py-1 uppercase text-sm' onClick={handleFavorite}>
                 <img src={favorite ? '/heartfull.svg' : '/heart.svg'} alt="" className='w-6 h-6'/>
                 {favorite ? 'Remove from favorites' : 'Add to favorites'}
               </button>

@@ -1,6 +1,9 @@
-import { ChangeEventHandler } from "react";
+interface InstructionProps {
+  number: number;
+  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
 
-export function Instruction ({number, handleChange}: {number: number, handleChange: ChangeEventHandler<HTMLTextAreaElement>}) {
+export function Instruction ({number, handleChange}: InstructionProps) {
 
   return (
     <>

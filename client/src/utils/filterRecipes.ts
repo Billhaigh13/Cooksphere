@@ -1,4 +1,6 @@
-export function filterRecipes(recipes, filter) {
+import { Filter, Recipe } from "../types/types";
+
+export function filterRecipes(recipes: Recipe[], filter: Filter) {
   let filteredRecipes;
   // ratings
   const ratings = filter.ratings;
@@ -26,9 +28,9 @@ export function filterRecipes(recipes, filter) {
   // duration
   const duration = filter.time;
   if (duration.length > 0) {
-    let quickRecipes = [];
-    let moderateRecipes = [];
-    let intensiveRecipes = [];
+    let quickRecipes: Recipe[] = [];
+    let moderateRecipes: Recipe[] = [];
+    let intensiveRecipes: Recipe[] = [];
     if (duration.includes("quick")) {
       quickRecipes = filteredRecipes.filter(
         (filteredRecipe) => filteredRecipe.cookingTimeInMinutes < 30

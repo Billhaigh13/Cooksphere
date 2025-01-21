@@ -1,6 +1,7 @@
 interface InstructionProps {
   number: number;
   handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string;
 }
 
 export function Instruction({ number, handleChange }: InstructionProps) {

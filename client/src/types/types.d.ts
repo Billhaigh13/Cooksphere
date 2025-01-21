@@ -1,22 +1,22 @@
-export type Category = {
+export interface Category {
   _id: string;
   name: string;
   image: string;
-};
+}
 
-export type Ingredient = {
+export interface Ingredient {
   ingredient: string;
   measure: string;
-};
+}
 
-export type Review = {
+export interface Review {
   author: string;
   message: string;
   rating: number;
   timestamp: string;
-};
+}
 
-export type Recipe = {
+export interface Recipe {
   _id: string;
   name: string;
   category: string;
@@ -27,9 +27,23 @@ export type Recipe = {
   cookingTimeInMinutes: number;
   rating: number;
   reviews: Review[];
-};
+}
 
-export type User = {
+export interface FormState {
+  name: string;
+  category: string;
+  instructions: Record<string, string>;
+  ingredients: Record<string, string>;
+  imageFile: File | null;
+  imageUrl: string;
+  tags: Record<string, string>;
+  cookingTime: {
+    hours: string;
+    minutes: string;
+  };
+}
+
+export interface User {
   firstname: string;
   lastname: string;
   image: string;
@@ -37,10 +51,10 @@ export type User = {
   password: string;
   favoriteRecipes: Recipe[];
   uploadedRecipes: Recipe[];
-};
+}
 
-export type FilterState = {
+export interface FilterState {
   tags: string[];
   time: string[];
   ratings: string | number;
-};
+}

@@ -1,4 +1,4 @@
-import { Category, Recipe, User } from "./types/types";
+import { Category, Recipe, User, FormState } from "./types/types";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -59,7 +59,7 @@ const getLatestRecipes = async (): Promise<any> => {
   }
 };
 
-const uploadRecipe = async (recipeData: Recipe): Promise<any> => {
+const uploadRecipe = async (recipeData: Recipe): Promise<Recipe> => {
   try {
     return await makeServerRequest("recipe", {
       method: "POST",
@@ -73,7 +73,7 @@ const uploadRecipe = async (recipeData: Recipe): Promise<any> => {
   }
 };
 
-const uploadImage = async (formData: string): Promise<any> => {
+const uploadImage = async (formData: FormData): Promise<any> => {
   try {
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload",

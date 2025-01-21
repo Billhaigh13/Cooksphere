@@ -1,4 +1,6 @@
-export const currentUser = {
+import { User } from "./types";
+
+export const currentUser: User = {
   firstname: "Zappe",
   lastname: "Thomson",
   image: "man",

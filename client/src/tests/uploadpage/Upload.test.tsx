@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router";
 import { AuthContext } from "../../App";
 import { Upload } from "../../components/uploadpage/Upload";
-import { mocks } from "../mocks";
+import { mocks } from "../mocks/index";
 
 describe("Upload component test", () => {
   test("Should correctly render the upload component", () => {

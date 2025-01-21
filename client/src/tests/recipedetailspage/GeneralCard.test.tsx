@@ -2,7 +2,7 @@ import { describe, test, expect, vi } from "vitest";
 import { fireEvent, getByText, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router";
 import { AuthContext } from "../../App";
-import { mocks } from "../mocks";
+import { mocks } from "../mocks/index";
 import { GeneralCard } from "../../components/recipedetailspage/GeneralCard";
 import { updateFavorites } from "../../ApiClient";
 

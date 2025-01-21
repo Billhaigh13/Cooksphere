@@ -1,4 +1,6 @@
-export const recipes = [
+import { Recipe } from "./types";
+
+export const recipes: Recipe[] = [
   {
     _id: {
       $oid: "6789059c638de9819d547873",

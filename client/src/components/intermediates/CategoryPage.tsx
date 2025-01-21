@@ -7,20 +7,20 @@ import { SortSelect } from "./SortSelect";
 import { filterRecipes } from "../../utils/filterRecipes";
 import { sortRecipes } from "../../utils/sortRecipes";
 import { categories } from "../../utils/imagePaths";
-import { Recipe } from "../../types/types";
+import { FilterState, Recipe } from "../../types/types";
 
 //TODO: Write integration test for category page
 
-interface FilterState {
-  tags: string[];
-  time: number[];
-  ratings: string | number;
-}
-
 export function CategoryPage() {
   const { category } = useParams<{ category: string }>();
-  const url = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${categories[category]}.jpg`;
 
+  if (!category) {
+    return <p>Category not found</p>;
+  }
+
+  const url = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${
+    categories[category as keyof typeof categories]
+  }.jpg`;
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [filtered, setFiltered] = useState<Recipe[]>([]);
   const [filter, setFilter] = useState<FilterState>({

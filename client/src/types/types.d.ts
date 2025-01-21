@@ -39,8 +39,8 @@ export type User = {
   uploadedRecipes: Recipe[];
 };
 
-export type Filter = {
+export type FilterState = {
   tags: string[];
   time: string[];
-  ratings: string;
+  ratings: string | number;
 };

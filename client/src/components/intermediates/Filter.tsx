@@ -2,17 +2,11 @@ import { ChangeEvent, useState } from "react";
 import { getTags } from "../../utils/getTags";
 import { Checkbox } from "../common/Checkbox";
 import { Radiobutton } from "../common/Radiobutton";
-import { Recipe } from "../../types/types";
+import { FilterState, Recipe } from "../../types/types";
 
 interface FilterProps {
   recipes: Recipe[];
   updateFilter: (filter: FilterState) => void;
-}
-
-interface FilterState {
-  tags: string[];
-  time: string[];
-  ratings: string | number;
 }
 
 export function Filter({ recipes, updateFilter }: FilterProps) {

@@ -6,13 +6,7 @@ import { Filter } from "./Filter";
 import { filterRecipes } from "../../utils/filterRecipes";
 import { sortRecipes } from "../../utils/sortRecipes";
 import { SortSelect } from "./SortSelect";
-import { Recipe } from "../../types/types";
-
-interface FilterState {
-  tags: string[];
-  time: string[];
-  ratings: any;
-}
+import { FilterState, Recipe } from "../../types/types";
 
 export function SearchResultPage() {
   const [searchParams] = useSearchParams();

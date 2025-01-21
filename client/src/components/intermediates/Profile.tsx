@@ -37,17 +37,19 @@ export function Profile() {
             alt='Profilepicture'
             className='w-32 rounded-full border-solid border-deepbrown border-2'
           />
-          <div className='flex flex-col gap-4'>
-            <div className='text-xl'>
-              {currentUser.firstname + " " + currentUser.lastname}
+          {currentUser && (
+            <div className='flex flex-col gap-4'>
+              <div className='text-xl'>
+                {currentUser.firstname + " " + currentUser.lastname}
+              </div>
+              <button
+                className='bg-[#FF6F3C] text-white hover:bg-[#D95427] gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
+                onClick={openPopup}
+              >
+                Upload Recipe
+              </button>
             </div>
-            <button
-              className='bg-[#FF6F3C] text-white hover:bg-[#D95427] gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
-              onClick={openPopup}
-            >
-              Upload Recipe
-            </button>
-          </div>
+          )}
         </div>
         <div className='flex flex-col gap-4'>
           <div className='bg-brown pt-4 rounded-lg'>

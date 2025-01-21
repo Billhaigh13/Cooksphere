@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { getTags } from "../../utils/getTags";
 import { Checkbox } from "../common/Checkbox";
 import { Radiobutton } from "../common/Radiobutton";
@@ -37,7 +37,7 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
     );
   });
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = event.target.value;
     let newFilterState;
@@ -94,19 +94,19 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
           <ul className='flex flex-col'>
             <Checkbox
               id='time-quick'
-              value='quick'
+              checked='quick'
               text='Quick (Under 30 Minutes)'
               handleChange={handleChange}
             />
             <Checkbox
               id='time-moderate'
-              value='moderate'
+              checked='moderate'
               text='Moderate (30-60 Minutes)'
               handleChange={handleChange}
             />
             <Checkbox
               id='time-intensive'
-              value='intensive'
+              checked='intensive'
               text='Time-Intensive (Over 60 Minutes)'
               handleChange={handleChange}
             />

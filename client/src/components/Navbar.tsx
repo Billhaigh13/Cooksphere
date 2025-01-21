@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router"
 import { AuthContext } from '../App';
+import { User } from "../types/types";
 
 export function Navbar () {
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContext) as User | null;
   return (
     <>
       <header className='flex justify-between items-center px-8 py-2 shadow-[0_0_0.25rem_#808080]'>
@@ -14,9 +15,11 @@ export function Navbar () {
         <nav>
           <a href=""></a>
         </nav>
-        <Link to='/profile'>
-          <img src={'/profile_' + currentUser.image +'.png'} alt="Profilepicture" className="w-16 rounded-full border-solid border-deepbrown border-2"/>
-        </Link>
+        {currentUser && (
+          <Link to="/profile">
+            <img src={`/profile_${currentUser.image}.png`} alt="Profile picture" className="w-16 rounded-full border-solid border-deepbrown border-2"/>
+          </Link>
+        )}
       </header>
     </>
   );

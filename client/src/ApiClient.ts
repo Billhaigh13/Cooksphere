@@ -145,7 +145,7 @@ const updateFavorites = async (
   }
 };
 
-const searchRecipes = async (searchinput: string): Promise<any> => {
+const searchRecipes = async (searchinput: string | null): Promise<any> => {
   try {
     return await makeServerRequest(`recipes?q=${searchinput}`);
   } catch (e) {

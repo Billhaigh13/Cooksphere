@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { Popup } from "../uploadpage/Popup";
 import { AuthContext } from "../../App";
 import { RecipeResults } from "./RecipeResults";
+import { Recipe } from "../../types/types";
 
 export function Profile() {
   const currentUser = useContext(AuthContext);
-  const [visible, setVisible] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const [uploaded, setUploaded] = useState([]);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [uploaded, setUploaded] = useState<Recipe[]>([]);
 
   function openPopup() {
     setVisible(true);
@@ -20,7 +21,7 @@ export function Profile() {
   }
 
   useEffect(() => {
-    if (currentUser.favoriteRecipes) {
+    if (currentUser && currentUser.favoriteRecipes) {
       setFavorites(currentUser.favoriteRecipes);
       setUploaded(currentUser.uploadedRecipes);
     }

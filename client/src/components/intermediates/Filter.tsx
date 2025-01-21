@@ -23,26 +23,23 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
   };
   const [filter, setFilter] = useState<FilterState>(initialFilterState);
 
-  const tags = getTags(recipes);
-  const tagElements = [];
-  tags.forEach((tag, index) => {
-    tagElements.push(
-      <Checkbox
-        key={index}
-        id={"tag-" + tag}
-        value={tag}
-        text={tag}
-        handleChange={handleChange}
-      />
-    );
-  });
+  const tags: any[] = Array.from(getTags(recipes));
+  const tagElements = tags.map((tag, index) => (
+    <Checkbox
+      key={index}
+      id={"tag-" + tag}
+      value={tag}
+      text={tag}
+      handleChange={handleChange}
+    />
+  ));
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = event.target.value;
-    let newFilterState;
+    let newFilterState: FilterState = { ...filter };
     if (name.includes("tag")) {
-      if (!event.target.checked) {
+      if (!event.target.value) {
         newFilterState = {
           ...filter,
           tags: filter["tags"].filter((tag) => tag !== value),
@@ -51,7 +48,7 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
         newFilterState = { ...filter, tags: [...filter["tags"], value] };
       }
     } else if (name.includes("time")) {
-      if (!event.target.checked) {
+      if (!event.target.value) {
         newFilterState = {
           ...filter,
           time: filter["time"].filter((time) => time !== value),
@@ -69,9 +66,13 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
   function resetFilter() {
     setFilter(initialFilterState);
     updateFilter(initialFilterState);
-    const inputs = document.querySelectorAll('input[type="checkbox"]');
+    const inputs = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]'
+    );
     inputs.forEach((input) => (input.checked = false));
-    const radioInputs = document.querySelectorAll('input[type="radio"]');
+    const radioInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[type="radio"]'
+    );
     radioInputs.forEach((input) => (input.checked = false));
   }
   return (
@@ -94,19 +95,19 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
           <ul className='flex flex-col'>
             <Checkbox
               id='time-quick'
-              checked='quick'
+              value='quick'
               text='Quick (Under 30 Minutes)'
               handleChange={handleChange}
             />
             <Checkbox
               id='time-moderate'
-              checked='moderate'
+              value='moderate'
               text='Moderate (30-60 Minutes)'
               handleChange={handleChange}
             />
             <Checkbox
               id='time-intensive'
-              checked='intensive'
+              value='intensive'
               text='Time-Intensive (Over 60 Minutes)'
               handleChange={handleChange}
             />

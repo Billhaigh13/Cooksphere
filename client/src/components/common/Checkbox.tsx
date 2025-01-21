@@ -1,11 +1,11 @@
 interface CheckboxProps {
   id: string;
-  checked: boolean;
+  value: string;
   text: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Checkbox({ id, checked, text, handleChange }: CheckboxProps) {
+export function Checkbox({ id, value, text, handleChange }: CheckboxProps) {
   return (
     <>
       <div>
@@ -13,7 +13,7 @@ export function Checkbox({ id, checked, text, handleChange }: CheckboxProps) {
           type='checkbox'
           id={id}
           name={id}
-          checked={checked}
+          value={value}
           onChange={(event) => handleChange(event)}
           className='accent-softyellow'
         />

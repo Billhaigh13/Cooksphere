@@ -4,9 +4,12 @@ import { AuthContext } from "../../App";
 import { rateAndReview } from "../../ApiClient";
 import { useParams } from "react-router";
 import { Checkbox } from "../common/Checkbox";
+import { Review } from "../../types/types";
 
-export function Reviews ({reviews}) {
-  const {recipeId} = useParams();
+type ReviewsProps = {reviews: Review[]}
+
+export function Reviews ({reviews}: ReviewsProps) {
+  const {recipeId} = useParams<{ recipeId: string }>();
   const currentUser = useContext(AuthContext);
 
   function formatDate (timestamp) {

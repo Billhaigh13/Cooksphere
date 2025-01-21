@@ -8,6 +8,13 @@ export type Ingredient = {
   measure: string;
 };
 
+export type Review = {
+  author: string;
+  message: string;
+  rating: number;
+  timestamp: Date;
+};
+
 export type Recipe = {
   name: string;
   category: string;
@@ -17,7 +24,7 @@ export type Recipe = {
   ingredients: Ingredient[];
   cookingTimeInMinutes: number;
   rating: number;
-  reviews: string[];
+  reviews: Review[];
 };
 
 export type User = {

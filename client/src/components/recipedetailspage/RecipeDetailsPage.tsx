@@ -5,14 +5,17 @@ import { GeneralCard } from './GeneralCard';
 import { Ingredients } from './Ingredients';
 import { Instructions } from './Instructions';
 import { Reviews } from './Reviews';
+import { Recipe } from '../../types/types';
 
 export function RecipeDetailsPage () {
-  const { recipeId } = useParams();
-  const [recipe, setRecipe] = useState(null);
+  const { recipeId } = useParams<{ recipeId:string }>();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
   useEffect(() => {
+    if (recipeId) {
     getRecipe(recipeId)
       .then(data => setRecipe(data))
       .catch(e => console.log(e));
+    }
   }, [recipeId]);
 
   if (!recipe) {

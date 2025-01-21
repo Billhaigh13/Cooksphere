@@ -19,7 +19,7 @@ async function makeServerRequest(
   }
 }
 
-const getRecipes = async (category: Category): Promise<any> => {
+const getRecipes = async (category: string): Promise<any> => {
   try {
     return await makeServerRequest(`recipes/category/${category}`);
   } catch (e) {

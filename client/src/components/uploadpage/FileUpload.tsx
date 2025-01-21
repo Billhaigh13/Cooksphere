@@ -1,4 +1,10 @@
-export function FileUpload ({error, handleChange}) {
+interface FileUploadProps {
+  error: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+
+export function FileUpload ({error, handleChange}: FileUploadProps) {
   return (
   <>
     <div className="bg-brown rounded-md p-2">

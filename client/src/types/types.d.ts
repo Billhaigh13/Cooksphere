@@ -16,6 +16,7 @@ export type Review = {
 };
 
 export type Recipe = {
+  _id: string;
   name: string;
   category: string;
   instructions: string[];

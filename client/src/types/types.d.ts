@@ -12,7 +12,7 @@ export type Review = {
   author: string;
   message: string;
   rating: number;
-  timestamp: Date;
+  timestamp: string;
 };
 
 export type Recipe = {

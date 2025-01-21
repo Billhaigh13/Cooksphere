@@ -1,18 +1,18 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Rating } from "../common/Rating";
 import { AuthContext } from "../../App";
 import { rateAndReview } from "../../ApiClient";
 import { useParams } from "react-router";
 import { Checkbox } from "../common/Checkbox";
-import { Review } from "../../types/types";
+import { Review, User } from "../../types/types";
 
 type ReviewsProps = {reviews: Review[]}
 
 export function Reviews ({reviews}: ReviewsProps) {
   const {recipeId} = useParams<{ recipeId: string }>();
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContext) as User | null;
 
-  function formatDate (timestamp) {
+  function formatDate (timestamp: string) {
     const date = timestamp.split('T')[0];
     return date.split('-').reverse().join('.');
   }
@@ -21,16 +21,18 @@ export function Reviews ({reviews}: ReviewsProps) {
   const [rating, setRating] = useState(0);
   const [onlyRating, setOnlyRating] = useState(false);
 
-  async function handleSubmit (event) {
+  async function handleSubmit (event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
-    const newReview = {
+    if(recipeId && currentUser) {
+    const newReview: Review = {
       author: currentUser.firstname + ' ' + currentUser.lastname,
       message: review,
       rating: rating,
       timestamp: (new Date()).toISOString()
     };
     await rateAndReview(recipeId, newReview);
+    }
   }
 
   function validate() {
@@ -39,7 +41,7 @@ export function Reviews ({reviews}: ReviewsProps) {
     return false;
   }
 
-  function handleChange (event) {
+  function handleChange (event: ChangeEvent<HTMLInputElement>) {
     const newVal = event.target.checked;
     setOnlyRating(newVal);
   }

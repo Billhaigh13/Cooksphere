@@ -1,18 +1,12 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { getTags } from "../../utils/getTags";
 import { Checkbox } from "../common/Checkbox";
 import { Radiobutton } from "../common/Radiobutton";
-import { Recipe } from "../../types/types";
+import { FilterState, Recipe } from "../../types/types";
 
 interface FilterProps {
   recipes: Recipe[];
   updateFilter: (filter: FilterState) => void;
-}
-
-interface FilterState {
-  tags: string[];
-  time: string[];
-  ratings: string | number;
 }
 
 export function Filter({ recipes, updateFilter }: FilterProps) {
@@ -23,26 +17,23 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
   };
   const [filter, setFilter] = useState<FilterState>(initialFilterState);
 
-  const tags = getTags(recipes);
-  const tagElements = [];
-  tags.forEach((tag, index) => {
-    tagElements.push(
-      <Checkbox
-        key={index}
-        id={"tag-" + tag}
-        value={tag}
-        text={tag}
-        handleChange={handleChange}
-      />
-    );
-  });
+  const tags: any[] = Array.from(getTags(recipes));
+  const tagElements = tags.map((tag, index) => (
+    <Checkbox
+      key={index}
+      id={"tag-" + tag}
+      value={tag}
+      text={tag}
+      handleChange={handleChange}
+    />
+  ));
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = event.target.value;
-    let newFilterState;
+    let newFilterState: FilterState = { ...filter };
     if (name.includes("tag")) {
-      if (!event.target.checked) {
+      if (!event.target.value) {
         newFilterState = {
           ...filter,
           tags: filter["tags"].filter((tag) => tag !== value),
@@ -51,7 +42,7 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
         newFilterState = { ...filter, tags: [...filter["tags"], value] };
       }
     } else if (name.includes("time")) {
-      if (!event.target.checked) {
+      if (!event.target.value) {
         newFilterState = {
           ...filter,
           time: filter["time"].filter((time) => time !== value),
@@ -69,9 +60,13 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
   function resetFilter() {
     setFilter(initialFilterState);
     updateFilter(initialFilterState);
-    const inputs = document.querySelectorAll('input[type="checkbox"]');
+    const inputs = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]'
+    );
     inputs.forEach((input) => (input.checked = false));
-    const radioInputs = document.querySelectorAll('input[type="radio"]');
+    const radioInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[type="radio"]'
+    );
     radioInputs.forEach((input) => (input.checked = false));
   }
   return (

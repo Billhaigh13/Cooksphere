@@ -6,13 +6,18 @@ import { Filter } from "./Filter";
 import { filterRecipes } from "../../utils/filterRecipes";
 import { sortRecipes } from "../../utils/sortRecipes";
 import { SortSelect } from "./SortSelect";
+import { FilterState, Recipe } from "../../types/types";
 
 export function SearchResultPage() {
   const [searchParams] = useSearchParams();
-  const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState({ tags: [], time: [], ratings: "all" });
-  const [filtered, setFiltered] = useState([]);
-  const [sorting, setSorting] = useState("");
+  const [results, setResults] = useState<Recipe[]>([]);
+  const [filter, setFilter] = useState<FilterState>({
+    tags: [],
+    time: [],
+    ratings: "all",
+  });
+  const [filtered, setFiltered] = useState<Recipe[]>([]);
+  const [sorting, setSorting] = useState<string>("");
 
   useEffect(() => {
     searchRecipes(searchParams.get("q"))

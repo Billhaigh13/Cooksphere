@@ -1,4 +1,5 @@
 export type Category = {
+  _id: string;
   name: string;
   image: string;
 };
@@ -38,8 +39,8 @@ export type User = {
   uploadedRecipes: Recipe[];
 };
 
-export type Filter = {
-  tags: string[],
-  time: string[],
-  ratings: string
-}
+export type FilterState = {
+  tags: string[];
+  time: string[];
+  ratings: string | number;
+};

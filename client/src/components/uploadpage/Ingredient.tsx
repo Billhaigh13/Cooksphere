@@ -6,13 +6,27 @@ interface IngredientProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Ingredient ({number, values, handleChange}: IngredientProps) {
+export function Ingredient({ number, values, handleChange }: IngredientProps) {
   return (
     <>
-      <div className="flex gap-4">
-        <Input id={'ingredient-' + number} name={'ingredient-' + number} value={values['ingredient'+number]} text={'Ingredient ' + number + ':'} handleChange={handleChange}/>
-        <Input id={'measure-' + number} name={'measure-' + number} value={values['measure'+number]} text={'Measure ' + number + ':'} handleChange={handleChange}/>
+      <div className='flex gap-4'>
+        <Input
+          id={"ingredient-" + number}
+          name={"ingredient-" + number}
+          value={values["ingredient" + number]}
+          text={"Ingredient " + number + ":"}
+          handleChange={handleChange}
+          error=''
+        />
+        <Input
+          id={"measure-" + number}
+          name={"measure-" + number}
+          value={values["measure" + number]}
+          text={"Measure " + number + ":"}
+          handleChange={handleChange}
+          error=''
+        />
       </div>
     </>
   );
-};
+}

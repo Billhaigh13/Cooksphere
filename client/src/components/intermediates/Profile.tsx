@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { Popup } from "../uploadpage/Popup";
 import { AuthContext } from "../../App";
 import { RecipeResults } from "./RecipeResults";
+import { Recipe } from "../../types/types";
 
 export function Profile() {
   const currentUser = useContext(AuthContext);
-  const [visible, setVisible] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const [uploaded, setUploaded] = useState([]);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [uploaded, setUploaded] = useState<Recipe[]>([]);
 
   function openPopup() {
     setVisible(true);
@@ -20,7 +21,7 @@ export function Profile() {
   }
 
   useEffect(() => {
-    if (currentUser.favoriteRecipes) {
+    if (currentUser && currentUser.favoriteRecipes) {
       setFavorites(currentUser.favoriteRecipes);
       setUploaded(currentUser.uploadedRecipes);
     }
@@ -36,17 +37,19 @@ export function Profile() {
             alt='Profilepicture'
             className='w-32 rounded-full border-solid border-deepbrown border-2'
           />
-          <div className='flex flex-col gap-4'>
-            <div className='text-xl'>
-              {currentUser.firstname + " " + currentUser.lastname}
+          {currentUser && (
+            <div className='flex flex-col gap-4'>
+              <div className='text-xl'>
+                {currentUser.firstname + " " + currentUser.lastname}
+              </div>
+              <button
+                className='bg-[#FF6F3C] text-white hover:bg-[#D95427] gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
+                onClick={openPopup}
+              >
+                Upload Recipe
+              </button>
             </div>
-            <button
-              className='bg-[#FF6F3C] text-white hover:bg-[#D95427] gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
-              onClick={openPopup}
-            >
-              Upload Recipe
-            </button>
-          </div>
+          )}
         </div>
         <div className='flex flex-col gap-4'>
           <div className='bg-brown pt-4 rounded-lg'>

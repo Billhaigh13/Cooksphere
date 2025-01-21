@@ -29,3 +29,9 @@ export type User = {
   favoriteRecipes: Recipe[];
   uploadedRecipes: Recipe[];
 };
+
+export type Filter = {
+  tags: string[],
+  time: string[],
+  ratings: string
+}

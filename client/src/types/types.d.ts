@@ -1,4 +1,5 @@
 export type Category = {
+  _id: string;
   name: string;
   image: string;
 };
@@ -39,7 +40,7 @@ export type User = {
 };
 
 export type Filter = {
-  tags: string[],
-  time: string[],
-  ratings: string
-}
+  tags: string[];
+  time: string[];
+  ratings: string;
+};

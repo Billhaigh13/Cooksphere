@@ -1,4 +1,4 @@
-export function StarSvg ({percentage, index}) {
+export function StarSvg ({percentage, index}:{percentage: number, index: string}) {
   // I got this wonderful idea on how to style a text with two different colors at the same time from this stackoverflow comment:
   // https://stackoverflow.com/a/34293307
   return (

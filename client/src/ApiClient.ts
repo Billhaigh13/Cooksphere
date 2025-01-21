@@ -1,50 +1,65 @@
+import { Category, Recipe, User } from "./types/types";
+
 const BASE_URL = "http://localhost:3000";
 
-async function makeServerRequest(endpoint: string, options?: object) {
+async function makeServerRequest(
+  endpoint: string,
+  options?: object
+): Promise<any> {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
     if (!response.ok) {
       throw new Error("Error fetching data");
     }
     return await response.json();
-  } catch (error) {
-    throw new Error(`API Error: ${error}`);
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
+    throw new Error(`API Error: ${errorMessage}`);
   }
 }
 
-const getRecipes = async (category) => {
+const getRecipes = async (category: Category): Promise<any> => {
   try {
     return await makeServerRequest(`recipes/category/${category}`);
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const getRecipe = async (recipeId) => {
+const getRecipe = async (recipeId: string): Promise<any> => {
   try {
     return await makeServerRequest(`recipes/${recipeId}`);
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const getCategories = async () => {
+const getCategories = async (): Promise<any> => {
   try {
     return await makeServerRequest("categories");
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const getLatestRecipes = async () => {
+const getLatestRecipes = async (): Promise<any> => {
   try {
     return await makeServerRequest("recipes/latest");
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const uploadRecipe = async (recipeData) => {
+const uploadRecipe = async (recipeData: Recipe): Promise<any> => {
   try {
     return await makeServerRequest("recipe", {
       method: "POST",
@@ -52,11 +67,13 @@ const uploadRecipe = async (recipeData) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const uploadImage = async (formData) => {
+const uploadImage = async (formData: string): Promise<any> => {
   try {
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload",
@@ -70,11 +87,19 @@ const uploadImage = async (formData) => {
     }
     return await response.json();
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const login = async ({ email, password }) => {
+const login = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<any> => {
   try {
     return await makeServerRequest("user/authenticate", {
       method: "POST",
@@ -82,11 +107,13 @@ const login = async ({ email, password }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const updateUploaded = async (user, recipe) => {
+const updateUploaded = async (user: User, recipe: Recipe): Promise<any> => {
   try {
     return await makeServerRequest("user/uploaded", {
       method: "PUT",
@@ -94,11 +121,17 @@ const updateUploaded = async (user, recipe) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const updateFavorites = async (user, recipe, favorite) => {
+const updateFavorites = async (
+  user: User,
+  recipe: Recipe,
+  favorite: boolean
+): Promise<any> => {
   try {
     return await makeServerRequest("user/favorites", {
       method: "PUT",
@@ -106,19 +139,26 @@ const updateFavorites = async (user, recipe, favorite) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const searchRecipes = async (searchinput) => {
+const searchRecipes = async (searchinput: string): Promise<any> => {
   try {
     return await makeServerRequest(`recipes?q=${searchinput}`);
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 
-const rateAndReview = async (recipeId, reviewObj) => {
+const rateAndReview = async (
+  recipeId: string,
+  reviewObj: Object
+): Promise<any> => {
   try {
     return await makeServerRequest(`recipes/${recipeId}`, {
       method: "PUT",
@@ -126,7 +166,9 @@ const rateAndReview = async (recipeId, reviewObj) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    throw new Error(e);
+    const errorMessage =
+      e instanceof Error ? e.message : "Unknown error occurred";
+    throw new Error(errorMessage);
   }
 };
 

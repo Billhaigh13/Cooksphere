@@ -1,4 +1,13 @@
-export function Input({ id, name, value, text, error, handleChange }) {
+interface InputProps {
+  id: string;
+  name: string;
+  value: string;
+  text: string;
+  error: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function Input({ id, name, value, text, error, handleChange }: InputProps) {
   return (
     <>
       <div className="flex flex-col w-96 gap-1">

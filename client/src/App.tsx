@@ -15,7 +15,7 @@ import { Category, Recipe, User } from './types/types';
 
 type AuthContextType = User | null;
 
-const AuthContext = createContext<AuthContextType>(null);
+export const AuthContext = createContext<AuthContextType>(null);
 
 const App: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);

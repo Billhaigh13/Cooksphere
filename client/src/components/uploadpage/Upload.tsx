@@ -69,7 +69,7 @@ export function Upload () {
   }
 
   // TODO: refactor
-  function handleChange (event) {
+  function handleChange (event: any) {
     const {name, value} = event.target;
     setFormState(prevState => {
 
@@ -118,7 +118,7 @@ export function Upload () {
   }
 
   // ! ChatGPT generated: I needed help to upload images to cloudinary
-  async function handleImageUpload (imageFile) {
+  async function handleImageUpload (imageFile: File) {
     if (!imageFile) {
       return null;
     }
@@ -136,7 +136,7 @@ export function Upload () {
     }
   }
 
-  async function handleUpload (event) {
+  async function handleUpload (event: any) {
     event.preventDefault();
 
     // ! Validation
@@ -245,7 +245,7 @@ export function Upload () {
         <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
           {Array.from({length: numOfInstructions}).map((elem, index) => (
             <>
-              <Instruction number={index + 1} value={formState.ingredients['ingredient-'+(index+1)]} handleChange={handleChange}/>
+              <Instruction number={index + 1} value={formState.ingredients['ingredient-'+ `${index+1}`]} handleChange={handleChange}/>
             </>
           ))}
           <button

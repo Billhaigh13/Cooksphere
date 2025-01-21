@@ -1,6 +1,12 @@
 import { Input } from "../common/Input";
 
-export function Ingredient ({number, values, handleChange}) {
+interface IngredientProps {
+  number: number;
+  values: Record<string, string>;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function Ingredient ({number, values, handleChange}: IngredientProps) {
   return (
     <>
       <div className="flex gap-4">

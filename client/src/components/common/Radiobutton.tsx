@@ -1,4 +1,12 @@
-export function Radiobutton ({id, name, value, text, handleChange}) {
+interface RadioProps {
+  id: string;
+  name: string;
+  value: string;
+  text: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function Radiobutton ({id, name, value, text, handleChange}: RadioProps) {
   return (
     <>
       <div>

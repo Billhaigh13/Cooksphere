@@ -1,6 +1,7 @@
 import { Link } from "react-router";
+import { Recipe } from "../../types/types";
 
-export function RecipeList ({title, recipes}) {
+export function RecipeList ({title, recipes}: {title: string, recipes: Recipe[]}) {
   return (
     <>
       <div className="px-8 py-4 bg-brown rounded-lg">

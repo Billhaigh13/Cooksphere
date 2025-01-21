@@ -1,6 +1,7 @@
 import { Link } from "react-router"
+import { Category } from "../../types/types";
 
-export function CategoryList ({title, listItems}) {
+export function CategoryList ({title, listItems}: {title: string, listItems: Category[]}) {
   return (
     <>
     <div className="px-8 py-4 bg-brown rounded-lg">

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from 'react-router';
 import { heroImageIds } from "../../utils/imagePaths";
 
@@ -8,12 +8,12 @@ export function Hero () {
   const heroURL = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${imageIds[random]}.jpg`;
 
   const [input, setInput] = useState('');
-  function handleChange (event) {
+  function handleChange (event: ChangeEvent<HTMLInputElement>): void {
     setInput(event.target.value);
   }
 
   const navigate = useNavigate();
-  function handleSubmit (event) {
+  function handleSubmit (event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     navigate(`/search?q=${input}`);
   }

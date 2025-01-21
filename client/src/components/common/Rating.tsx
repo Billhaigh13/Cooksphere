@@ -6,7 +6,7 @@ export function Rating ({rating, type, setRating}) {
   const [selectedStar, setSelectedStar] = useState(rating);
 
   useEffect(() => setSelectedStar(rating), [rating]);
-  function getPercentage (index) {
+  function getPercentage (index: number) {
     if (index < Math.floor(rating)) {
       return 100;
     } else if (index > Math.floor(rating)) {

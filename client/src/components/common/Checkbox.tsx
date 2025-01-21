@@ -1,4 +1,11 @@
-export function Checkbox ({id, value, text, handleChange}) {
+interface CheckboxProps {
+  id: string;
+  value: string;
+  text: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function Checkbox ({id, value, text, handleChange}: CheckboxProps) {
   return (
     <>
       <div>

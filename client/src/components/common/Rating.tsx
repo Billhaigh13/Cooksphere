@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { StarSvg } from "./StarSvg"
 
-export function Rating ({rating, type, setRating}) {
+interface RatingProps {
+  rating: number;
+  type: "rate" | "display";
+  setRating: (rating:number) => void;
+}
+
+export function Rating ({rating, type, setRating} : RatingProps) {
   const [hoveredStar, setHoveredStar] = useState(-1);
   const [selectedStar, setSelectedStar] = useState(rating);
 
@@ -16,7 +22,7 @@ export function Rating ({rating, type, setRating}) {
     }
   }
 
-  function handleChange (newRating) {
+  function handleChange (newRating: number): void {
     setSelectedStar(newRating);
     setRating(newRating);
   }
@@ -44,7 +50,7 @@ export function Rating ({rating, type, setRating}) {
                     currentRating <= (hoveredStar || selectedStar) ? "#ffc107" : "#e4e5e9",
                 }}
                 onMouseEnter={() => setHoveredStar(currentRating)}
-                onMouseLeave={() => setHoveredStar(null)}
+                onMouseLeave={() => setHoveredStar(0)}
               >★</span>
               </label>
             );
@@ -52,7 +58,7 @@ export function Rating ({rating, type, setRating}) {
         </div>
       : <div className="flex">
           {Array(5).fill(0).map((elem, index) => {
-            return <StarSvg key={index} percentage={getPercentage(index)} index={index}/>
+            return <StarSvg key={index} percentage={getPercentage(index)} index={index.toString()}/>
           })}
         </div>
       }

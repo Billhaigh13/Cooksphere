@@ -4,9 +4,10 @@ interface IngredientProps {
   number: number;
   values: Record<string, string>;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error: boolean
 }
 
-export function Ingredient({ number, values, handleChange }: IngredientProps) {
+export function Ingredient({ number, values, handleChange, error }: IngredientProps) {
   return (
     <>
       <div className='flex gap-4'>
@@ -16,7 +17,7 @@ export function Ingredient({ number, values, handleChange }: IngredientProps) {
           value={values["ingredient" + number]}
           text={"Ingredient " + number + ":"}
           handleChange={handleChange}
-          error={false}
+          error={error}
         />
         <Input
           id={"measure-" + number}
@@ -24,7 +25,7 @@ export function Ingredient({ number, values, handleChange }: IngredientProps) {
           value={values["measure" + number]}
           text={"Measure " + number + ":"}
           handleChange={handleChange}
-          error={false}
+          error={error}
         />
       </div>
     </>

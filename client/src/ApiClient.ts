@@ -1,4 +1,4 @@
-import { Category, Recipe, User } from "./types/types";
+import { Category, Recipe, UploadRecipe, User } from "./types/types";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -59,7 +59,7 @@ const getLatestRecipes = async (): Promise<Recipe[]> => {
   }
 };
 
-const uploadRecipe = async (recipeData: Recipe) => {
+const uploadRecipe = async (recipeData: UploadRecipe) => {
   try {
     return await makeServerRequest<Recipe>("recipes", {
       method: "POST",

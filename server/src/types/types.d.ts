@@ -1,9 +1,3 @@
-export interface CategoryType {
-  _id: string;
-  name: string;
-  image: string;
-}
-
 export interface IngredientType {
   ingredient: string;
   measure: string;
@@ -27,16 +21,6 @@ export interface RecipeType {
   cookingTimeInMinutes: number;
   rating: number;
   reviews: ReviewType[];
-}
-
-export interface UserType {
-  firstname: string;
-  lastname: string;
-  image: string;
-  email: string;
-  password: string;
-  favoriteRecipes: RecipeType[];
-  uploadedRecipes: RecipeType[];
 }
 
 export interface ApiRecipe {

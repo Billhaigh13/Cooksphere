@@ -50,7 +50,7 @@ describe("Integration Tests for Backend API", () => {
         cookingTimeInMinutes: 30,
       };
 
-      const res = await request(app).post("/recipe").send(newRecipe);
+      const res = await request(app).post("/recipes").send(newRecipe);
       expect(res.status).toBe(201);
       expect(res.body).toMatchObject(newRecipe);
       recipeId = res.body._id;

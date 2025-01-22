@@ -69,7 +69,7 @@ export function GeneralCard({ recipe }: GeneralProps) {
             <div className='flex justify-between'>
               <Rating
                 rating={recipe.rating}
-                type={"rate"}
+                type={"display"}
                 setRating={function (rating: number): void {
                   throw new Error("Function not implemented.");
                 }}

@@ -13,12 +13,9 @@ describe('Navbar', () => {
   });
 
   it('should navigate to the profile page if the user is logged in', () => {
-    cy.intercept('GET', '/api/auth/user', {
+    cy.intercept('POST', '/user/authenticate', {
       statusCode: 200,
-      body: {
-        id: 1,
-        image: 'user1'
-      },
+      body: { email: "zappe.thomson@test.com", password: "Test123!" },
     });
     cy.reload();
     cy.get('header a[href="/profile"]').click();

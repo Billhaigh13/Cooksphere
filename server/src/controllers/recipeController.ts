@@ -2,39 +2,39 @@
 import Recipe from "../models/recipe";
 import { Request, Response } from "express";
 
-const getRecipes = async (req: Request, res: Response): Promise<any> => {
+const getRecipes = async (req: Request, res: Response): Promise<void> => {
   try {
     if (Object.keys(!req.query).length === 0) {
       const recipes = await Recipe.find();
-      return res.send(recipes);
+      res.send(recipes);
     } else {
       const searchQuery = req.query.q as string;
       const recipes = await Recipe.find({ $text: { $search: searchQuery } });
-      return res.send(recipes);
+      res.send(recipes);
     }
   } catch (e) {
     console.log("Req query: ", req.query);
     console.log(e);
 
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error getting recipes!", code: 500 } });
   }
 };
 
-const getRecipe = async (req: Request, res: Response): Promise<any> => {
+const getRecipe = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.recipeId;
     if (!id) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "No recipe id provided!", code: 400 } });
     }
     const recipe = await Recipe.findOne({ _id: id });
-    return res.send(recipe);
+    res.send(recipe);
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error getting recipe!", code: 500 } });
   }
@@ -43,19 +43,19 @@ const getRecipe = async (req: Request, res: Response): Promise<any> => {
 const getRecipesByCategory = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<void> => {
   try {
     const category = req.params.category;
     if (!category) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "No category provided!", code: 400 } });
     }
     const recipes = await Recipe.find({ category });
-    return res.send(recipes);
+    res.send(recipes);
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error getting recipes!", code: 500 } });
   }
@@ -64,68 +64,70 @@ const getRecipesByCategory = async (
 const getLastAddedRecipes = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<void> => {
   try {
     const recipes = await Recipe.find().sort({ createdAt: -1 }).limit(10);
-    return res.send(recipes);
+    res.send(recipes);
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error getting recipes!", code: 500 } });
   }
 };
 
-const postRecipe = async (req: Request, res: Response): Promise<any> => {
+const postRecipe = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body;
     if (!body) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "Request body missing!", code: 400 } });
     }
     const recipe = await Recipe.create(body);
-    return res.status(201).send(recipe);
+    res.status(201).send(recipe);
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error creating recipe!", code: 500 } });
   }
 };
 
-const postReview = async (req: Request, res: Response): Promise<any> => {
+const postReview = async (req: Request, res: Response): Promise<void> => {
   try {
     const { rating, message } = req.body;
     if (!rating && !message) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "Missing rating or review!", code: 400 } });
     }
     const id = req.params.recipeId;
     if (!id) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "No recipe id provided!", code: 400 } });
     }
     const recipe = await Recipe.findOne({ _id: id });
     if (!recipe) {
-      return res
+      res
         .status(404)
         .send({ error: { message: "Recipe not found!", code: 404 } });
     }
-    const oldRating = recipe.rating;
+    if (recipe) {
+      const oldRating = recipe.rating;
 
-    recipe.reviews.push(req.body);
-    const newRating = parseFloat(
-      ((oldRating + rating) / recipe.reviews.length).toFixed(2)
-    );
-    recipe.rating = newRating;
-    await recipe.save();
-    return res.status(200).send(req.body);
+      recipe.reviews.push(req.body);
+      const newRating = parseFloat(
+        ((oldRating + rating) / recipe.reviews.length).toFixed(2)
+      );
+      recipe.rating = newRating;
+      await recipe.save();
+      res.status(200).send(req.body);
+    }
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error creating recipe!", code: 500 } });
   }

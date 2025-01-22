@@ -1,15 +1,18 @@
-'use strict';
-import Category from '../models/category';
-import { Request, Response } from 'express';
+"use strict";
+import Category from "../models/category";
+import { Request, Response } from "express";
+import { CategoryType } from "../types/types";
 
-const getAllCategories = async (req: Request, res: Response): Promise<any> => {
+const getAllCategories = async (req: Request, res: Response): Promise<void> => {
   try {
     const categories = await Category.find();
-    return res.send(categories);
+    res.send(categories);
   } catch (e) {
     console.log(e);
-    return res.status(500).send({error: {message: 'Error getting categories!', code: 500}});
+    res
+      .status(500)
+      .send({ error: { message: "Error getting categories!", code: 500 } });
   }
 };
 
-export {getAllCategories};
+export { getAllCategories };

@@ -3,11 +3,11 @@ import User from "../models/user";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 
-const login = async (req: Request, res: Response): Promise<any> => {
+const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res
+      res
         .status(401)
         .send({ error: { message: "Missing credentials!", code: 400 } });
     }
@@ -16,48 +16,45 @@ const login = async (req: Request, res: Response): Promise<any> => {
       .populate("uploadedRecipes")
       .populate("favoriteRecipes");
     if (!user) {
-      return res.status(401).send({ error: "Wrong credentials" });
+      res.status(401).send({ error: "Wrong credentials" });
     }
 
-    if (bcrypt.compareSync(password, user.password)) {
-      return res.send(user);
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.send(user);
     } else {
-      return res.status(402).send({ error: "Wrong credentials" });
+      res.status(402).send({ error: "Wrong credentials" });
     }
   } catch (e) {
     console.log(e);
-    return res
+    res
       .status(500)
       .send({ error: { message: "Error getting user!", code: 500 } });
   }
 };
 
-const updateUploaded = async (req: Request, res: Response): Promise<any> => {
+const updateUploaded = async (req: Request, res: Response): Promise<void> => {
   try {
     const { user, recipe } = req.body;
     if (!user) {
-      return res
-        .status(400)
-        .send({ error: { message: "Missing user!", code: 400 } });
+      res.status(400).send({ error: { message: "Missing user!", code: 400 } });
     } else if (!recipe) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "Missing recipe!", code: 400 } });
     }
 
     const userDB = await User.findOne({ email: user.email });
-    if (!userDB) {
-      return res
+    if (userDB) {
+      userDB.uploadedRecipes.push(recipe);
+      await userDB.save();
+      res.send(userDB);
+    } else
+      res
         .status(404)
         .send({ error: { message: "User not found!", code: 404 } });
-    }
-
-    userDB.uploadedRecipes.push(recipe);
-    await userDB.save();
-    res.send(userDB);
   } catch (e) {
     console.log(e);
-    return res.status(500).send({
+    res.status(500).send({
       error: {
         message: "Error updated uploaded recipes for user!",
         code: 500,
@@ -66,37 +63,35 @@ const updateUploaded = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-const updateFavorites = async (req: Request, res: Response): Promise<any> => {
+const updateFavorites = async (req: Request, res: Response): Promise<void> => {
   try {
     const { user, recipe, favorite } = req.body;
     if (!user) {
-      return res
-        .status(400)
-        .send({ error: { message: "Missing user!", code: 400 } });
+      res.status(400).send({ error: { message: "Missing user!", code: 400 } });
     } else if (!recipe) {
-      return res
+      res
         .status(400)
         .send({ error: { message: "Missing recipe!", code: 400 } });
     }
 
     const userDB = await User.findOne({ email: user.email });
-    if (!userDB) {
-      return res
+    if (userDB) {
+      if (favorite) {
+        userDB.favoriteRecipes.push(recipe);
+      } else {
+        userDB.favoriteRecipes = userDB.favoriteRecipes.filter(
+          (favorite) => favorite.toString() !== recipe._id
+        );
+      }
+      await userDB.save();
+      res.send(userDB);
+    } else
+      res
         .status(404)
         .send({ error: { message: "User not found!", code: 404 } });
-    }
-    if (favorite) {
-      userDB.favoriteRecipes.push(recipe);
-    } else {
-      userDB.favoriteRecipes = userDB.favoriteRecipes.filter(
-        (favorite) => favorite.toString() !== recipe._id
-      );
-    }
-    await userDB.save();
-    res.send(userDB);
   } catch (e) {
     console.log(e);
-    return res.status(500).send({
+    res.status(500).send({
       error: {
         message: "Error updated uploaded recipes for user!",
         code: 500,

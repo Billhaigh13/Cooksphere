@@ -50,7 +50,12 @@ export function GeneralCard({ recipe }: GeneralProps) {
           <div className='bg-brown py-4 pr-8 pl-16 rounded-xl flex flex-col justify-between h-52 shadow_2 w-full ml-[20rem]'>
             <div>
               <div className='flex items-center gap-4'>
-                <h1 className='text-3xl font-bold text-white'>{recipe.name}</h1>
+                <h1
+                  className='text-3xl font-bold text-white'
+                  data-testid='recipe_name'
+                >
+                  {recipe.name}
+                </h1>
                 <Link to={"/recipes/category/" + recipe.category}>
                   <span className='px-2 py-1 h-fit rounded-md bg-softyellow text-deepbrown font-poppins uppercase text-sm'>
                     {recipe.category}

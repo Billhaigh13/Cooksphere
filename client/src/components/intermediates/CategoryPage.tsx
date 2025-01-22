@@ -65,7 +65,10 @@ export function CategoryPage() {
               className='h-80 bg-cover bg-[50%_45%] bg-no-repeat opacity-75'
               style={{ backgroundImage: `url(${url})` }}
             ></div>
-            <h3 className='absolute top-12 left-4 text-5xl font-bold font-fira'>
+            <h3
+              className='absolute top-12 left-4 text-5xl font-bold font-fira'
+              data-testid='category_heading'
+            >
               {category + " Recipes"}
             </h3>
           </div>

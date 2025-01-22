@@ -19,10 +19,27 @@ describe('Home Page', () => {
     cy.get('[data-testid="category_list"]').contains('Dessert');
   });
 
+  it('should link to the category page', () => {
+    cy.get('[data-testid="category_list"] a').first().then(($el) => {
+      const categoryName = $el.text().trim();
+      cy.wrap($el).click();
+      cy.url().should('include', `/recipes/category/${categoryName}`);
+      cy.get('[data-testid="category_heading"]').should('contain.text', categoryName);
+    });
+  });
+
   it('should display the latest recipes', () => {
     cy.get('[data-testid="latest_recipes"]').should('be.visible');
 
     cy.get('[data-testid="latest_recipes"]').contains('Yaki Udon');
+  });
+
+  it('should link to the latest recipe page', () => {
+    cy.get('[data-testid="latest_recipes"] a').first().then(($el) => {
+      const recipeName = $el.text().trim();
+      cy.wrap($el).click(); 
+      cy.get('[data-testid="recipe_name"]').should('contain.text', recipeName);
+    });
   });
 
   it('should search for recipes', () => {

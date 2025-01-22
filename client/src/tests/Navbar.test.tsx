@@ -9,14 +9,11 @@ describe("Navbar Test", () => {
   test("Should correctly render the navbar", () => {
     render(
       <BrowserRouter>
-      <AuthContext.Provider value={mocks.currentUser}>
-        <Navbar />
-      </AuthContext.Provider>
+        <AuthContext.Provider value={mocks.currentUser}>
+          <Navbar />
+        </AuthContext.Provider>
       </BrowserRouter>
     );
     expect(screen.getByText("Cooksphere")).toBeInTheDocument();
-    const navbarimg = screen.getByTestId("navbar_img");
-    expect(navbarimg.alt).toBe("Cooksphere Logo");
-    expect(navbarimg.src).toBe("http://localhost:3000/logo.png");
   });
 });

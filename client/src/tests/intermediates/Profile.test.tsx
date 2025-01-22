@@ -9,11 +9,11 @@ describe("Profile component test", () => {
   test("should correctly render the profile component", () => {
     render(
       <BrowserRouter>
-      <AuthContext.Provider value={mocks.currentUser}>
-        <Profile />
-      </AuthContext.Provider>
+        <AuthContext.Provider value={mocks.currentUser}>
+          <Profile />
+        </AuthContext.Provider>
       </BrowserRouter>
-    )
+    );
     expect(screen.getByText("My Profile")).toBeInTheDocument();
-  })
-})
+  });
+});

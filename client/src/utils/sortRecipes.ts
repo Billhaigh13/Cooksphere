@@ -6,11 +6,9 @@ export function sortRecipes(recipes: Recipe[], sortBy: string): Recipe[] {
   } else if (sortBy === "Z-A") {
     return [...recipes].sort((a, b) => (a.name < b.name ? 1 : -1));
   } else if (sortBy.includes("Best")) {
-    return [...recipes].sort((a, b) => a.rating < b.rating ? 1 : -1);
+    return [...recipes].sort((a, b) => (a.rating < b.rating ? 1 : -1));
   } else if (sortBy.includes("Worst")) {
-    return [...recipes].sort((a, b) => a.rating > b.rating ? 1 : -1);
+    return [...recipes].sort((a, b) => (a.rating > b.rating ? 1 : -1));
   }
   return recipes;
 }
-
-//TODO: this currently will throw an error if provided only recipes, should return recipes

@@ -6,4 +6,4 @@ export const user = {
   password: "$2b$10$bvWUPIguUqBHs2jCLMdSzure7Suht8UQjw1Nx.WMQn0.jgiEEV0zW",
   favoriteRecipes: [],
   uploadedRecipes: [],
-}
+};

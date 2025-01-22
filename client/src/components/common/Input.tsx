@@ -17,12 +17,12 @@ export function Input({
 }: InputProps) {
   return (
     <>
-      <div className='flex flex-col w-96 gap-1'>
-        <label htmlFor={id} className='text-white leading-4 text-sm'>
+      <div className="flex flex-col w-96 gap-1">
+        <label htmlFor={id} className="text-white leading-4 text-sm">
           {text}
         </label>
         <input
-          type='text'
+          type="text"
           id={id}
           name={name}
           value={value}
@@ -32,7 +32,7 @@ export function Input({
           onChange={handleChange}
         />
         {!error && (
-          <span className='text-error'>
+          <span className="text-error">
             {name[0].toUpperCase() + name.substring(1) + " is required."}
           </span>
         )}

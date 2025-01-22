@@ -81,7 +81,6 @@ const formatRecipe = (recipe: ApiRecipe): RecipeType => {
 
   return {
     name: recipe.strMeal,
-    // TODO area: recipe.strArea,
     category: recipe.strCategory,
     instructions: recipe.strInstructions
       .split("\r\n")

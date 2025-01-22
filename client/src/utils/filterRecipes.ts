@@ -56,5 +56,3 @@ export function filterRecipes(recipes: Recipe[], filter: Filter) {
   }
   return filteredRecipes;
 }
-
-//TODO: TEST add unit test for this function

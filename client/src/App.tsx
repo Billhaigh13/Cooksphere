@@ -43,31 +43,31 @@ const App: React.FC = () => {
     <>
       <AuthContext.Provider value={currentUser}>
         <Navbar />
-        <main className='bg-lightbeige'>
+        <main className="bg-lightbeige">
           <Routes>
             <Route
-              path='/'
+              path="/"
               element={
                 <>
                   <Hero />
-                  <div className='mx-8 py-4'>
+                  <div className="mx-8 py-4">
                     <CategoryList
-                      title='Recipe Categories'
+                      title="Recipe Categories"
                       listItems={categories}
                     />
-                    <hr className='my-4 text-center h-[0.0625rem] bg-deepbrown border-0' />
-                    <RecipeList title='New Added Recipes' recipes={latest} />
+                    <hr className="my-4 text-center h-[0.0625rem] bg-deepbrown border-0" />
+                    <RecipeList title="New Added Recipes" recipes={latest} />
                   </div>
                 </>
               }
             />
-            <Route path='/recipe/:recipeId' element={<RecipeDetailsPage />} />
+            <Route path="/recipe/:recipeId" element={<RecipeDetailsPage />} />
             <Route
-              path='/recipes/category/:category'
+              path="/recipes/category/:category"
               element={<CategoryPage />}
             />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/search' element={<SearchResultPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<SearchResultPage />} />
           </Routes>
         </main>
       </AuthContext.Provider>
@@ -76,7 +76,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-//TODO: front end testing
-//TODO: FEAT: add redux
-//TODO: write end-to-end tests

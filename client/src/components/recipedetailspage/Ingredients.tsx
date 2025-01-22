@@ -7,12 +7,12 @@ interface IngredientProps {
 export function Ingredients({ ingredients }: IngredientProps) {
   return (
     <>
-      <div className='p-4 bg-brown rounded-xl h-fit shadow_2'>
-        <h2 className='text-xl font-semibold flex items-center gap-2 text-white px-4'>
+      <div className="p-4 bg-brown rounded-xl h-fit shadow_2">
+        <h2 className="text-xl font-semibold flex items-center gap-2 text-white px-4">
           Ingredients
-          <img src='/list.svg' alt='list-icon' className='w-6 h-6' />
+          <img src="/list.svg" alt="list-icon" className="w-6 h-6" />
         </h2>
-        <ul className='m-4 bg-lightbeige rounded-md'>
+        <ul className="m-4 bg-lightbeige rounded-md">
           {ingredients.map((ingredient, index) => {
             return (
               <li
@@ -22,8 +22,8 @@ export function Ingredients({ ingredients }: IngredientProps) {
                   " flex gap-2 p-2"
                 }
               >
-                <div className='w-[40%] text-right'>{ingredient.measure}</div>
-                <div className='w-[60%]'>{ingredient.ingredient}</div>
+                <div className="w-[40%] text-right">{ingredient.measure}</div>
+                <div className="w-[60%]">{ingredient.ingredient}</div>
               </li>
             );
           })}

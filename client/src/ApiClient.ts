@@ -1,4 +1,4 @@
-import { Category, Recipe, User, FormState } from "./types/types";
+import { Recipe, User } from "./types/types";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -61,7 +61,7 @@ const getLatestRecipes = async (): Promise<any> => {
 
 const uploadRecipe = async (recipeData: Recipe): Promise<Recipe> => {
   try {
-    return await makeServerRequest("recipe", {
+    return await makeServerRequest("recipes", {
       method: "POST",
       body: JSON.stringify(recipeData),
       headers: { "Content-Type": "application/json" },

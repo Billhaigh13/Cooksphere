@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 const getRecipes = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (Object.keys(!req.query).length === 0) {
+    if (Object.keys(req.query).length === 0) {
       const recipes = await Recipe.find();
       res.send(recipes);
     } else {

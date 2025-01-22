@@ -1,7 +1,6 @@
 "use strict";
 import Category from "../models/category";
 import { Request, Response } from "express";
-import { CategoryType } from "../types/types";
 
 const getAllCategories = async (req: Request, res: Response): Promise<void> => {
   try {

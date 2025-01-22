@@ -1,7 +1,7 @@
 "use strict";
 import cors from "cors";
 import express from "express";
-import router from "./router";
+import router from "./routers/router";
 import { connectDB } from "./models";
 
 const app: express.Express = express();

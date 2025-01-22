@@ -10,7 +10,10 @@ export function RecipeResults({
 }) {
   return (
     <>
-      <div className='grid gap-4 grid-cols-[repeat(auto-fit,minmax(14rem,_1fr))] px-8 py-4 bg-brown rounded-lg'>
+      <div
+        className='grid gap-4 grid-cols-[repeat(auto-fit,minmax(14rem,_1fr))] px-8 py-4 bg-brown rounded-lg'
+        data-testid='search_results'
+      >
         {recipes.length > 0 ? (
           recipes.map((recipe) => (
             <Link

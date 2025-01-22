@@ -6,7 +6,10 @@ export function Navbar() {
   const currentUser = useContext(AuthContext);
   return (
     <>
-      <header className='flex justify-between items-center px-8 py-2 shadow-[0_0_0.25rem_#808080]'>
+      <header
+        data-testid='navbar'
+        className='flex justify-between items-center px-8 py-2 shadow-[0_0_0.25rem_#808080]'
+      >
         <Link to='/'>
           <img
             src='/logo.png'

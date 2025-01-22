@@ -9,7 +9,6 @@ describe('Home Page', () => {
 
   it('should display the search bar', () => {
     cy.get('input[type="text"]').should('be.visible');
-
     cy.get('input[type="text"]').should('have.attr', 'placeholder', 'Search recipe');
   });
 

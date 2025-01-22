@@ -14,6 +14,7 @@ export function SortSelect({ setSorting }: SortProps) {
           id='sort'
           className='px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow'
           onChange={(event) => setSorting(event.target.value)}
+          data-testid='sort_select'
         >
           <option disabled selected value='' hidden>
             -- Select an option --

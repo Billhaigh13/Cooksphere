@@ -3,6 +3,10 @@ describe('Recipe Details Page', () => {
     cy.visit('/recipe/678e3a9ed6dea3f5af56ecf4')
   });
 
+  it('should display the navbar', () => {
+    cy.get('[data-testid="navbar"]').should('be.visible');
+  });
+  
   it('should render recipe details correctly', () => {
     cy.get('[data-testid="recipe_img"]').should('have.attr', 'src', 'https://www.themealdb.com/images/media/meals/wrustq1511475474.jpg');
     cy.get('[data-testid="recipe_name"]').should('contain.text', 'Yaki Udon');

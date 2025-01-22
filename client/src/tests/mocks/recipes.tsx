@@ -2,9 +2,9 @@ import { Recipe } from "./types";
 
 export const recipes: Recipe[] = [
   {
-    _id: {
-      $oid: "6789059c638de9819d547873",
-    },
+    _id: 
+ "6789059c638de9819d547873",
+    
     name: "Apple Frangipan Tart",
     category: "Dessert",
     instructions: [
@@ -22,82 +22,75 @@ export const recipes: Recipe[] = [
       {
         ingredient: "digestive biscuits",
         measure: "175g/6oz",
-        _id: {
-          $oid: "6789059c638de9819d547874",
-        },
+        _id: 
+     "6789059c638de9819d547874",
+        
       },
       {
         ingredient: "butter",
         measure: "75g/3oz",
-        _id: {
-          $oid: "6789059c638de9819d547875",
-        },
+        _id: 
+     "6789059c638de9819d547875",
+        
       },
       {
         ingredient: "Bramley apples",
         measure: "200g/7oz",
-        _id: {
-          $oid: "6789059c638de9819d547876",
-        },
+        _id: 
+     "6789059c638de9819d547876",
+        
       },
       {
         ingredient: "butter, softened",
         measure: "75g/3oz",
-        _id: {
-          $oid: "6789059c638de9819d547877",
-        },
+        _id: 
+     "6789059c638de9819d547877",
+        
       },
       {
         ingredient: "caster sugar",
         measure: "75g/3oz",
-        _id: {
-          $oid: "6789059c638de9819d547878",
-        },
+        _id: 
+     "6789059c638de9819d547878",
+        
       },
       {
         ingredient: "free-range eggs, beaten",
         measure: "2",
-        _id: {
-          $oid: "6789059c638de9819d547879",
-        },
+        _id: 
+     "6789059c638de9819d547879",
+        
       },
       {
         ingredient: "ground almonds",
         measure: "75g/3oz",
-        _id: {
-          $oid: "6789059c638de9819d54787a",
-        },
+        _id: 
+     "6789059c638de9819d54787a",
+        
       },
       {
         ingredient: "almond extract",
         measure: "1 tsp",
-        _id: {
-          $oid: "6789059c638de9819d54787b",
-        },
+        _id: 
+     "6789059c638de9819d54787b",
+        
       },
       {
         ingredient: "flaked almonds",
         measure: "50g/1¾oz",
-        _id: {
-          $oid: "6789059c638de9819d54787c",
-        },
+        _id: 
+     "6789059c638de9819d54787c",
+        
       },
     ],
     cookingTimeInMinutes: 45,
     rating: 0,
     reviews: [],
-    __v: 0,
-    createdAt: {
-      $date: "2025-01-16T13:11:57.021Z",
-    },
-    updatedAt: {
-      $date: "2025-01-16T13:11:57.021Z",
-    },
   },
   {
-    _id: {
-      $oid: "6789059c638de9819d54787d",
-    },
+    _id: 
+ "6789059c638de9819d54787d",
+    
     name: "Apple & Blackberry Crumble",
     category: "Dessert",
     instructions: [
@@ -111,82 +104,75 @@ export const recipes: Recipe[] = [
       {
         ingredient: "Plain Flour",
         measure: "120g",
-        _id: {
-          $oid: "6789059c638de9819d54787e",
-        },
+        _id: 
+     "6789059c638de9819d54787e",
+        
       },
       {
         ingredient: "Caster Sugar",
         measure: "60g",
-        _id: {
-          $oid: "6789059c638de9819d54787f",
-        },
+        _id: 
+     "6789059c638de9819d54787f",
+        
       },
       {
         ingredient: "Butter",
         measure: "60g",
-        _id: {
-          $oid: "6789059c638de9819d547880",
-        },
+        _id: 
+     "6789059c638de9819d547880",
+        
       },
       {
         ingredient: "Braeburn Apples",
         measure: "300g",
-        _id: {
-          $oid: "6789059c638de9819d547881",
-        },
+        _id: 
+     "6789059c638de9819d547881",
+        
       },
       {
         ingredient: "Butter",
         measure: "30g",
-        _id: {
-          $oid: "6789059c638de9819d547882",
-        },
+        _id: 
+     "6789059c638de9819d547882",
+        
       },
       {
         ingredient: "Demerara Sugar",
         measure: "30g",
-        _id: {
-          $oid: "6789059c638de9819d547883",
-        },
+        _id: 
+     "6789059c638de9819d547883",
+        
       },
       {
         ingredient: "Blackberrys",
         measure: "120g",
-        _id: {
-          $oid: "6789059c638de9819d547884",
-        },
+        _id: 
+     "6789059c638de9819d547884",
+        
       },
       {
         ingredient: "Cinnamon",
         measure: "¼ teaspoon",
-        _id: {
-          $oid: "6789059c638de9819d547885",
-        },
+        _id: 
+     "6789059c638de9819d547885",
+        
       },
       {
         ingredient: "Ice Cream",
         measure: "to serve",
-        _id: {
-          $oid: "6789059c638de9819d547886",
-        },
+        _id: 
+     "6789059c638de9819d547886",
+        
       },
     ],
     cookingTimeInMinutes: 45,
     rating: 0,
     reviews: [],
-    __v: 0,
-    createdAt: {
-      $date: "2025-01-16T13:11:57.022Z",
-    },
-    updatedAt: {
-      $date: "2025-01-16T13:11:57.022Z",
-    },
   },
   {
-    _id: {
-      $oid: "6789059c638de9819d547887",
-    },
+    _id: 
+ "6789059c638de9819d547887",
+    
     name: "Apam balik",
     category: "Dessert",
     instructions: [
@@ -201,76 +187,69 @@ export const recipes: Recipe[] = [
       {
         ingredient: "Milk",
         measure: "200ml",
-        _id: {
-          $oid: "6789059c638de9819d547888",
-        },
+        _id: 
+     "6789059c638de9819d547888",
+        
       },
       {
         ingredient: "Oil",
         measure: "60ml",
-        _id: {
-          $oid: "6789059c638de9819d547889",
-        },
+        _id: 
+     "6789059c638de9819d547889",
+        
       },
       {
         ingredient: "Eggs",
         measure: "2",
-        _id: {
-          $oid: "6789059c638de9819d54788a",
-        },
+        _id: 
+     "6789059c638de9819d54788a",
+        
       },
       {
         ingredient: "Flour",
         measure: "1600g",
-        _id: {
-          $oid: "6789059c638de9819d54788b",
-        },
+        _id: 
+     "6789059c638de9819d54788b",
+        
       },
       {
         ingredient: "Baking Powder",
         measure: "3 tsp",
-        _id: {
-          $oid: "6789059c638de9819d54788c",
-        },
+        _id: 
+     "6789059c638de9819d54788c",
+        
       },
       {
         ingredient: "Salt",
         measure: "1/2 tsp",
-        _id: {
-          $oid: "6789059c638de9819d54788d",
-        },
+        _id: 
+     "6789059c638de9819d54788d",
+        
       },
       {
         ingredient: "Unsalted Butter",
         measure: "25g",
-        _id: {
-          $oid: "6789059c638de9819d54788e",
-        },
+        _id: 
+     "6789059c638de9819d54788e",
+        
       },
       {
         ingredient: "Sugar",
         measure: "45g",
-        _id: {
-          $oid: "6789059c638de9819d54788f",
-        },
+        _id: 
+     "6789059c638de9819d54788f",
+        
       },
       {
         ingredient: "Peanut Butter",
         measure: "3 tbs",
-        _id: {
-          $oid: "6789059c638de9819d547890",
-        },
+        _id: 
+     "6789059c638de9819d547890",
+        
       },
     ],
     cookingTimeInMinutes: 45,
     rating: 0,
     reviews: [],
-    __v: 0,
-    createdAt: {
-      $date: "2025-01-16T13:11:57.022Z",
-    },
-    updatedAt: {
-      $date: "2025-01-16T13:11:57.022Z",
-    },
   },
 ];

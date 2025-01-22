@@ -8,7 +8,7 @@
     "postinstall": "npm run tsc",
     "dev": "ts-node-dev -- respawn -- pretty --transpile-only index.ts",
     "test": "jest",
-    "server": "node dist/index.js",
+    "server": "node dist/server/src/index.js",
     "db:seed": "node ./dist/scripts/seed.js"
   },
   "author": "",

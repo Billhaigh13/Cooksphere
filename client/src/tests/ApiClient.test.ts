@@ -76,7 +76,7 @@ describe("API Utility Functions", () => {
 
     const result = await uploadRecipe(mocks.recipe);
 
-    expect(mockFetch).toHaveBeenCalledWith(`http://localhost:3000/recipe`, {
+    expect(mockFetch).toHaveBeenCalledWith(`http://localhost:3000/recipes`, {
       method: "POST",
       body: JSON.stringify(mocks.recipe),
       headers: { "Content-Type": "application/json" },

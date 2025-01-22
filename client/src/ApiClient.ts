@@ -1,17 +1,17 @@
-import { Recipe, User } from "./types/types";
+import { Category, Recipe, User } from "./types/types";
 
 const BASE_URL = "http://localhost:3000";
 
-async function makeServerRequest(
+async function makeServerRequest<T>(
   endpoint: string,
   options?: object
-): Promise<any> {
+): Promise<T> {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
     if (!response.ok) {
       throw new Error("Error fetching data");
     }
-    return await response.json();
+    return (await response.json()) as unknown as T;
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error occurred";
@@ -19,9 +19,11 @@ async function makeServerRequest(
   }
 }
 
-const getRecipes = async (category: string): Promise<any> => {
+const getRecipes = async (category: string) => {
   try {
-    return await makeServerRequest(`recipes/category/${category}`);
+    return await makeServerRequest<{ name: string; id: string }>(
+      `recipes/category/${category}`
+    );
   } catch (e) {
     const errorMessage =
       e instanceof Error ? e.message : "Unknown error occurred";
@@ -29,7 +31,7 @@ const getRecipes = async (category: string): Promise<any> => {
   }
 };
 
-const getRecipe = async (recipeId: string): Promise<any> => {
+const getRecipe = async (recipeId: string) => {
   try {
     return await makeServerRequest(`recipes/${recipeId}`);
   } catch (e) {
@@ -39,7 +41,7 @@ const getRecipe = async (recipeId: string): Promise<any> => {
   }
 };
 
-const getCategories = async (): Promise<any> => {
+const getCategories = async (): Promise<Category[]> => {
   try {
     return await makeServerRequest("categories");
   } catch (e) {
@@ -49,7 +51,7 @@ const getCategories = async (): Promise<any> => {
   }
 };
 
-const getLatestRecipes = async (): Promise<any> => {
+const getLatestRecipes = async (): Promise<Recipe[]> => {
   try {
     return await makeServerRequest("recipes/latest");
   } catch (e) {
@@ -59,7 +61,7 @@ const getLatestRecipes = async (): Promise<any> => {
   }
 };
 
-const uploadRecipe = async (recipeData: Recipe): Promise<Recipe> => {
+const uploadRecipe = async (recipeData: Recipe) => {
   try {
     return await makeServerRequest("recipes", {
       method: "POST",
@@ -73,7 +75,7 @@ const uploadRecipe = async (recipeData: Recipe): Promise<Recipe> => {
   }
 };
 
-const uploadImage = async (formData: FormData): Promise<any> => {
+const uploadImage = async (formData: FormData) => {
   try {
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload",
@@ -99,7 +101,7 @@ const login = async ({
 }: {
   email: string;
   password: string;
-}): Promise<any> => {
+}): Promise<User> => {
   try {
     return await makeServerRequest("user/authenticate", {
       method: "POST",
@@ -113,7 +115,7 @@ const login = async ({
   }
 };
 
-const updateUploaded = async (user: User, recipe: Recipe): Promise<any> => {
+const updateUploaded = async (user: User, recipe: Recipe) => {
   try {
     return await makeServerRequest("user/uploaded", {
       method: "PUT",
@@ -131,7 +133,7 @@ const updateFavorites = async (
   user: User,
   recipe: Recipe,
   favorite: boolean
-): Promise<any> => {
+) => {
   try {
     return await makeServerRequest("user/favorites", {
       method: "PUT",
@@ -145,7 +147,7 @@ const updateFavorites = async (
   }
 };
 
-const searchRecipes = async (searchinput: string | null): Promise<any> => {
+const searchRecipes = async (searchinput: string | null) => {
   try {
     return await makeServerRequest(`recipes?q=${searchinput}`);
   } catch (e) {
@@ -155,10 +157,7 @@ const searchRecipes = async (searchinput: string | null): Promise<any> => {
   }
 };
 
-const rateAndReview = async (
-  recipeId: string,
-  reviewObj: Object
-): Promise<any> => {
+const rateAndReview = async (recipeId: string, reviewObj: Object) => {
   try {
     return await makeServerRequest(`recipes/${recipeId}`, {
       method: "PUT",

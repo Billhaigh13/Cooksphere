@@ -27,11 +27,11 @@ export function Input({
           name={name}
           value={value}
           className={
-            (error ? "outline-error" : "") + " outline-none rounded-md px-1"
+            (!error ? "outline-error" : "") + " outline-none rounded-md px-1"
           }
           onChange={handleChange}
         />
-        {error && (
+        {!error && (
           <span className='text-error'>
             {name[0].toUpperCase() + name.substring(1) + " is required."}
           </span>

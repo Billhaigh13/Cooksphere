@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Ingredient } from "./Ingredient";
 import { Input } from "../common/Input";
 import { Instruction } from "./Instruction";
@@ -14,7 +14,7 @@ interface ErrorState {
   cookingTime: boolean;
   category: boolean;
   tags: boolean;
-  image: boolean;
+  imageFile: boolean;
 }
 
 const initialState: FormState = {
@@ -32,13 +32,13 @@ const initialState: FormState = {
 };
 
 const initialErrorState: ErrorState = {
-  name: false,
-  ingredients: false,
-  instructions: false,
-  cookingTime: false,
-  category: false,
-  tags: false,
-  image: false,
+  name: true,
+  ingredients: true,
+  instructions: true,
+  cookingTime: true,
+  category: true,
+  tags: true,
+  imageFile: true,
 };
 
 // ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
@@ -51,6 +51,10 @@ export function Upload() {
 
   const [formState, setFormState] = useState(initialState);
   const [errorState, setErrorState] = useState(initialErrorState);
+
+  useEffect(() => {
+
+  }, [errorState]);
 
   function addIngredient() {
     setNumOfIngredients((prev) => prev + 1);
@@ -123,6 +127,7 @@ export function Upload() {
         [name]: value,
       };
     });
+    validateFormData();
   }
 
   // ! ChatGPT generated: I needed help to upload images to cloudinary
@@ -146,33 +151,38 @@ export function Upload() {
 
   async function handleUpload(event: any) {
     event.preventDefault();
-
+    
     //! Validation
     // if (validateFormData()) return;
-
-    if (formState.imageFile) {
-      const imageUrl = await handleImageUpload(formState.imageFile);
-
-      if (!imageUrl) {
-        //TODO show error to user
-        console.log("Error uploading recipe");
-        return;
-      }
-      const updatedFormState = {
-        ...formState,
-        imageUrl: imageUrl,
-      };
-      console.log("updated form state", updatedFormState);
-
-      const formatted = formatFormData(updatedFormState);
-      console.log("formatted", formatted);
-      const recipe = await uploadRecipe(formatted);
-      if (currentUser) {
-        await updateUploaded(currentUser, recipe);
-        setFormState(initialState);
-        setNumOfIngredients(1);
-        setNumOfInstructions(1);
-        setFormKey((prevKey) => prevKey + 1);
+    const isValid = validateFormData();
+    console.log(isValid);
+    if (isValid) {
+      console.log("form valid")
+      if (formState.imageFile) {
+        console.log("formstate image file valid")
+        const imageUrl = await handleImageUpload(formState.imageFile);
+  
+        if (!imageUrl) {
+          //TODO show error to user
+          console.log("Error uploading recipe");
+          return;
+        }
+        const updatedFormState = {
+          ...formState,
+          imageUrl: imageUrl,
+        };
+        console.log("updated form state", updatedFormState);
+  
+        const formatted = formatFormData(updatedFormState);
+        console.log("formatted", formatted);
+        const recipe = await uploadRecipe(formatted);
+        if (currentUser) {
+          await updateUploaded(currentUser, recipe);
+          setFormState(initialState);
+          setNumOfIngredients(1);
+          setNumOfInstructions(1);
+          setFormKey((prevKey) => prevKey + 1);
+        }
       }
     }
   }
@@ -225,28 +235,51 @@ export function Upload() {
   //TODO: validation incomplete
   //TODO: FEAT: complete form validation
   //TODO: Form validation made no sense, needs to be re-worked
-  // function validateFormData() {
-  //   const newErrorState = {};
-  //   for (const key of Object.keys(formState)) {
-  //     if (key === "ingredients") {
-  //       // ingredients: {
-  //       //   'ingredient-1': '',
-  //       //   'measure-1': ''
-  //       // },
-  //     } else if (key === "instructions") {
-  //       // instructions: {'instruction-1': ''},
-  //     } else if (key === "cookingTime") {
-  //       newErrorState[key] =
-  //         !formState[key]["hours"] && !formState[key]["minutes"];
-  //     } else if (key === "tags") {
-  //       // tags: {'tag-1': '', 'tag-2': '', 'tag-3': ''},
-  //     } else {
-  //       newErrorState[key] = !formState[key];
-  //     }
-  //   }
-  //   setErrorState(newErrorState);
-  //   return Object.values(newErrorState).includes(true);
-  // }
+  function validateFormData() {
+    const newErrorState: ErrorState = errorState;
+
+    if (formState.name.length > 0) {
+      newErrorState.name = true;
+    } else {
+      newErrorState.name = false;
+    }
+    if (formState.instructions["instruction-1"].length > 0) {
+      newErrorState.instructions = true;
+    } else {
+      newErrorState.instructions = false;
+    }
+    if (formState.ingredients["ingredient-1"].length > 0 && formState.ingredients["measure-1"].length > 0 ) {
+      newErrorState.ingredients = true;
+    } else {
+      newErrorState.ingredients = false;
+    }
+    if (formState.category.length > 0) {
+      newErrorState.category = true;
+    } else {
+      newErrorState.category = false;
+    } 
+    if (formState.imageFile !== null) {
+      newErrorState.imageFile = true;
+    } else {
+      newErrorState.imageFile = false;
+    }
+    if (formState.tags["tag-1"].length > 0 && formState.tags["tag-2"].length > 0 && formState.tags["tag-3"].length > 0) {
+      newErrorState.tags = true;
+    } else {
+      newErrorState.tags = false;
+    }
+    if (formState.cookingTime.hours.length > 0 || formState.cookingTime.minutes.length > 0) {
+      newErrorState.cookingTime = true;
+    } else {
+      newErrorState.cookingTime = false;
+    }
+    setErrorState(newErrorState);
+    if (!Object.values(newErrorState).includes(false)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
@@ -275,6 +308,7 @@ export function Upload() {
               number={index + 1}
               values={formState.ingredients}
               handleChange={handleChange}
+              error={errorState.ingredients}
             />
           ))}
           <button
@@ -303,6 +337,9 @@ export function Upload() {
           >
             Add instruction
           </button>
+          {!errorState.instructions && (
+            <span className="text-error">Instructions are required.</span>
+          )}
         </div>
         {/* cooking time */}
         <div className='flex items-center gap-4 bg-brown rounded-md p-2'>
@@ -313,7 +350,7 @@ export function Upload() {
             value={formState.cookingTime.hours}
             text='Hours:'
             handleChange={handleChange}
-            error={false}
+            error={errorState.cookingTime}
           />
           <Input
             id='time-minutes'
@@ -321,9 +358,9 @@ export function Upload() {
             value={formState.cookingTime.minutes}
             text='Minutes:'
             handleChange={handleChange}
-            error={false}
+            error={errorState.cookingTime}
           />
-          {errorState.cookingTime && (
+          {!errorState.cookingTime && (
             <span className='text-error'>Cooking time is required.</span>
           )}
         </div>
@@ -346,7 +383,7 @@ export function Upload() {
             <option value='Dessert'>Dessert</option>
             <option value='Vegan'>Vegan</option>
           </select>
-          {errorState.category && (
+          {!errorState.category && (
             <span className='text-error ml-4'>Category is required.</span>
           )}
         </div>
@@ -359,7 +396,7 @@ export function Upload() {
             value={formState.tags["tag-1"]}
             text='Tag 1:'
             handleChange={handleChange}
-            error={false}
+            error={errorState.tags}
           />
           <Input
             id='tag-2'
@@ -367,7 +404,7 @@ export function Upload() {
             value={formState.tags["tag-2"]}
             text='Tag 2:'
             handleChange={handleChange}
-            error={false}
+            error={errorState.tags}
           />
           <Input
             id='tag-3'
@@ -375,13 +412,13 @@ export function Upload() {
             value={formState.tags["tag-3"]}
             text='Tag 3:'
             handleChange={handleChange}
-            error={false}
+            error={errorState.tags}
           />
         </div>
         {/* image */}
         <FileUpload
           value={formState.imageUrl}
-          error={errorState.image}
+          error={errorState.imageFile}
           handleChange={handleChange}
         />
 

@@ -5,7 +5,7 @@ import { Instruction } from "./Instruction";
 import { uploadImage, uploadRecipe, updateUploaded } from "../../ApiClient";
 import { FileUpload } from "./FileUpload";
 import { AuthContext } from "../../App";
-import { FormState, Recipe } from "../../types/types";
+import { FormState, Recipe, UploadRecipe } from "../../types/types";
 
 interface ErrorState {
   name: boolean;
@@ -111,7 +111,7 @@ export function Upload() {
             [name]: value,
           },
         };
-      } else if (name === "image") {
+      } else if (name === "imageFile") {
         return {
           ...prevState,
           [name]: event.target.files[0],
@@ -162,8 +162,10 @@ export function Upload() {
         ...formState,
         imageUrl: imageUrl,
       };
+      console.log("updated form state", updatedFormState);
 
       const formatted = formatFormData(updatedFormState);
+      console.log("formatted", formatted);
       const recipe = await uploadRecipe(formatted);
       if (currentUser) {
         await updateUploaded(currentUser, recipe);
@@ -175,7 +177,7 @@ export function Upload() {
     }
   }
 
-  function formatFormData(data: FormState): Recipe {
+  function formatFormData(data: FormState): UploadRecipe {
     const formattedInstructions = [];
     const instructions = data.instructions;
     for (let i = 1; instructions[`instruction-${i}`] !== undefined; i++) {
@@ -216,9 +218,6 @@ export function Upload() {
       ingredients: formattedIngredients,
       tags: formattedTags,
       cookingTimeInMinutes: formattedCookingTime,
-      rating: 0,
-      reviews: [],
-      _id: "",
       image: data.imageUrl,
     };
   }

@@ -29,6 +29,16 @@ export interface Recipe {
   reviews: Review[];
 }
 
+export interface UploadRecipe {
+  name: string;
+  category: string;
+  instructions: string[];
+  image: string;
+  tags: string[];
+  ingredients: Ingredient[];
+  cookingTimeInMinutes: number;
+}
+
 export interface FormState {
   name: string;
   category: string;

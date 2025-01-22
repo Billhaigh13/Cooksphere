@@ -12,12 +12,10 @@ export function Profile() {
 
   function openPopup() {
     setVisible(true);
-    document.body.classList.add("overflow-hidden");
   }
 
   function closePopup() {
     setVisible(false);
-    document.body.classList.remove("overflow-hidden");
   }
 
   useEffect(() => {
@@ -26,6 +24,14 @@ export function Profile() {
       setUploaded(currentUser.uploadedRecipes);
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [visible]);
 
   return (
     <>

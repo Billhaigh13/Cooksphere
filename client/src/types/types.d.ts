@@ -58,3 +58,9 @@ export interface FilterState {
   time: string[];
   ratings: string | number;
 }
+
+export interface Filter {
+  ratings: string | number;
+  tags: string[];
+  time: string[];
+}

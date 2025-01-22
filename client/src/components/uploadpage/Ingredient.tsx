@@ -16,7 +16,7 @@ export function Ingredient({ number, values, handleChange }: IngredientProps) {
           value={values["ingredient" + number]}
           text={"Ingredient " + number + ":"}
           handleChange={handleChange}
-          error=''
+          error={false}
         />
         <Input
           id={"measure-" + number}
@@ -24,7 +24,7 @@ export function Ingredient({ number, values, handleChange }: IngredientProps) {
           value={values["measure" + number]}
           text={"Measure " + number + ":"}
           handleChange={handleChange}
-          error=''
+          error={false}
         />
       </div>
     </>

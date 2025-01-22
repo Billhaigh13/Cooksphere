@@ -3,7 +3,7 @@ import { Filter, Recipe } from "../types/types";
 export function filterRecipes(recipes: Recipe[], filter: Filter) {
   let filteredRecipes;
   // ratings
-  const ratings = filter.ratings;
+  const ratings = String(filter.ratings);
   if (ratings === "all") {
     filteredRecipes = recipes;
   } else {

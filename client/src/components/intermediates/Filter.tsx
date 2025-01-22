@@ -8,13 +8,13 @@ interface FilterProps {
   recipes: Recipe[];
   updateFilter: (filter: FilterState) => void;
 }
+const initialFilterState: FilterState = {
+  tags: [],
+  time: [],
+  ratings: "all",
+};
 
 export function Filter({ recipes, updateFilter }: FilterProps) {
-  const initialFilterState: FilterState = {
-    tags: [],
-    time: [],
-    ratings: "all",
-  };
   const [filter, setFilter] = useState<FilterState>(initialFilterState);
 
   const tags: any[] = Array.from(getTags(recipes));

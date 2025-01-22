@@ -17,6 +17,30 @@ interface ErrorState {
   image: boolean;
 }
 
+const initialState: FormState = {
+  name: "",
+  ingredients: {
+    "ingredient-1": "",
+    "measure-1": "",
+  },
+  instructions: { "instruction-1": "" },
+  cookingTime: { hours: "", minutes: "" },
+  category: "",
+  tags: { "tag-1": "", "tag-2": "", "tag-3": "" },
+  imageFile: null,
+  imageUrl: "",
+};
+
+const initialErrorState: ErrorState = {
+  name: false,
+  ingredients: false,
+  instructions: false,
+  cookingTime: false,
+  category: false,
+  tags: false,
+  image: false,
+};
+
 // ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
 export function Upload() {
   const currentUser = useContext(AuthContext);
@@ -25,32 +49,7 @@ export function Upload() {
   const [numOfInstructions, setNumOfInstructions] = useState(1);
   const [formKey, setFormKey] = useState(0);
 
-  // form data
-  const initialState: FormState = {
-    name: "",
-    ingredients: {
-      "ingredient-1": "",
-      "measure-1": "",
-    },
-    instructions: { "instruction-1": "" },
-    cookingTime: { hours: "", minutes: "" },
-    category: "",
-    tags: { "tag-1": "", "tag-2": "", "tag-3": "" },
-    imageFile: null,
-    imageUrl: "",
-  };
   const [formState, setFormState] = useState(initialState);
-
-  // error state
-  const initialErrorState: ErrorState = {
-    name: false,
-    ingredients: false,
-    instructions: false,
-    cookingTime: false,
-    category: false,
-    tags: false,
-    image: false,
-  };
   const [errorState, setErrorState] = useState(initialErrorState);
 
   function addIngredient() {

@@ -1,6 +1,7 @@
 interface FileUploadProps {
   error: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 }
 
 export function FileUpload({ error, handleChange }: FileUploadProps) {

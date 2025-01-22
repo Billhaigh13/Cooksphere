@@ -1,20 +1,51 @@
-'use strict';
+"use strict";
 import bcrypt from "bcrypt";
-import mongoose from 'mongoose';
-import Category from '../models/category';
-import Recipe from '../models/recipe';
-import User from '../models/user';
+import mongoose from "mongoose";
+import Category from "../models/category";
+import Recipe from "../models/recipe";
+import User from "../models/user";
 import { categories as categoryImages } from "../../../client/src/utils/imagePaths.js";
+import { ApiRecipe, IngredientType, RecipeType } from "../types/types";
 
-const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
+const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 const alphabet = [
-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-  'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-  'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-  'y', 'z', '1', '2', '3', '4', '5', '6',
-  '7', '8', '9'
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
 ];
-const recipes: any[] = [];
+const recipes: RecipeType | ApiRecipe[] = [];
 const categories: string[] = [];
 const cloudinaryUrl = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/`;
 
@@ -22,25 +53,29 @@ const clearDatabase = async () => {
   await Recipe.deleteMany();
   await Category.deleteMany();
   await User.deleteMany();
-  console.log('MongoDB cleared!');
+  console.log("MongoDB cleared!");
 };
 
-const formatRecipe = (recipe: any) => {
+const formatRecipe = (recipe: ApiRecipe): RecipeType => {
   if (!categories.includes(recipe.strCategory)) {
     categories.push(recipe.strCategory);
   }
-  const ingredients = [];
-  for (let i=1; i<101; i++) {
-    const ingredient = recipe[`strIngredient${i}`];
-    const measure = recipe[`strMeasure${i}`];
+  const ingredients: IngredientType[] = [];
+  for (let i = 1; i < 101; i++) {
+    const ingredient: string = recipe[
+      `strIngredient${i}` as keyof ApiRecipe
+    ] as string;
+    const measure: string = recipe[
+      `strMeasure${i}` as keyof ApiRecipe
+    ] as string;
     if (!ingredient && !measure) {
       break;
-    } else if (ingredient.trim() === '' && measure.trim() === '') {
+    } else if (ingredient.trim() === "" && measure.trim() === "") {
       continue;
     }
     ingredients.push({
       ingredient: ingredient.trim(),
-      measure: measure.trim()
+      measure: measure.trim(),
     });
   }
 
@@ -48,11 +83,18 @@ const formatRecipe = (recipe: any) => {
     name: recipe.strMeal,
     // TODO area: recipe.strArea,
     category: recipe.strCategory,
-    instructions: recipe.strInstructions.split('\r\n').filter((instr: string) => instr.trim() !== ''),
+    instructions: recipe.strInstructions
+      .split("\r\n")
+      .filter((instr: string) => instr.trim() !== ""),
     image: recipe.strMealThumb,
-    tags: recipe.strTags ? recipe.strTags.split(',').map((tag: string) => tag.trim()) : [],
+    tags: recipe.strTags
+      ? recipe.strTags.split(",").map((tag: string) => tag.trim())
+      : [],
     ingredients: ingredients,
     cookingTimeInMinutes: 45,
+    _id: "",
+    rating: 0,
+    reviews: [],
   };
 };
 
@@ -61,32 +103,37 @@ const fillDatabase = async () => {
     const response = await fetch(`${BASE_URL}/search.php?f=${letter}`);
     const data = await response.json();
     if (data.meals) {
-      data.meals.map((meal: any) => recipes.push(meal));
+      data.meals.map((meal: ApiRecipe) => recipes.push(meal));
     }
   }
 
-  const formattedRecipes = recipes.map(recipe => formatRecipe(recipe));
+  const formattedRecipes = recipes.map((recipe) => formatRecipe(recipe));
   await Recipe.insertMany(formattedRecipes);
-  const formattedCategories = categories.map(category => ({name: category, image: `${cloudinaryUrl}${categoryImages[category as keyof typeof categoryImages]}.jpg`}));
+  const formattedCategories = categories.map((category) => ({
+    name: category,
+    image: `${cloudinaryUrl}${
+      categoryImages[category as keyof typeof categoryImages]
+    }.jpg`,
+  }));
   await Category.insertMany(formattedCategories);
   const user = {
-    firstname: 'Zappe',
-    lastname: 'Thomson',
-    email: 'zappe.thomson@test.com',
-    password: 'Test123!'
+    firstname: "Zappe",
+    lastname: "Thomson",
+    email: "zappe.thomson@test.com",
+    password: "Test123!",
   };
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(user.password, salt);
   await User.create({
     ...user,
-    password: hashedPassword
+    password: hashedPassword,
   });
-  console.log('MongoDB filled successfully!');
+  console.log("MongoDB filled successfully!");
 };
 
 (async () => {
   await clearDatabase();
   await fillDatabase();
   await mongoose.disconnect();
-  console.log('Disconnected to MongoDB!');
+  console.log("Disconnected to MongoDB!");
 })();

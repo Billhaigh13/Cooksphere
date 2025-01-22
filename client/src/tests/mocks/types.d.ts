@@ -1,5 +1,5 @@
 export type Recipe = {
-  _id: {$oid: string};
+  _id: string;
   name: string;
   category: string;
   instructions: string[];
@@ -8,16 +8,13 @@ export type Recipe = {
   ingredients: Ingredient[];
   cookingTimeInMinutes: number;
   rating: number;
-  reviews: string[];
-  __v: number;
-  createdAt: {$date: string};
-  updatedAt: {$date: string}; 
+  reviews: Review[];
 }
 
 export type Ingredient = {
   ingredient: string;
   measure: string;
-  _id: {$oid: string};
+  _id: string;
 }
 
 export type User = {
@@ -29,3 +26,16 @@ export type User = {
   favoriteRecipes: Recipe[];
   uploadedRecipes: Recipe[];
 }
+
+export type Review = {
+  author: string;
+  message: string;
+  rating: number;
+  timestamp: string;
+};
+
+export type Category = {
+  _id: string;
+  name: string;
+  image: string;
+};

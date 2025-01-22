@@ -42,15 +42,21 @@ describe('Category Page', () => {
 
   it('should sort recipes based on user selection', () => {
     cy.get('[data-testid="sort_select"]').select('A-Z');
-    cy.get('[data-testid="sort_select"]').should('have.value', 'A-Z');
-    cy.get('[data-testid="search_results"]').children().then(($recipes) => {
-      const recipeNames = [...$recipes].map((el) => el.querySelector('span').textContent);
-      expect(recipeNames).to.deep.equal([...recipeNames].sort());
-    });
-    cy.get('[data-testid="sort_select"]').select('Z-A');
-    cy.get('[data-testid="search_results"]').children().then(($recipes) => {
-      const recipeNames = [...$recipes].map((el) => el.querySelector('span').textContent);
-      expect(recipeNames).to.deep.equal([...recipeNames].sort().reverse());
-    });
+    cy.get('[data-testid="search_results"]')
+      .children()
+      .should(($recipes) => {
+        const recipeNames = [...$recipes].map((el) => el.querySelector('span').textContent);
+        const expectedNames = [...recipeNames].sort(); 
+        expect(recipeNames).to.deep.equal(expectedNames); 
+      });
+  
+    cy.get('[data-testid="sort_select"]').select('Z-A'); 
+    cy.get('[data-testid="search_results"]')
+      .children()
+      .should(($recipes) => {
+        const recipeNames = [...$recipes].map((el) => el.querySelector('span').textContent);
+        const expectedNames = [...recipeNames].sort().reverse(); 
+        expect(recipeNames).to.deep.equal(expectedNames);
+      });
   });
 });

@@ -21,9 +21,7 @@ async function makeServerRequest<T>(
 
 const getRecipes = async (category: string) => {
   try {
-    return await makeServerRequest<{ name: string; id: string }>(
-      `recipes/category/${category}`
-    );
+    return await makeServerRequest<Recipe[]>(`recipes/category/${category}`);
   } catch (e) {
     const errorMessage =
       e instanceof Error ? e.message : "Unknown error occurred";
@@ -33,7 +31,7 @@ const getRecipes = async (category: string) => {
 
 const getRecipe = async (recipeId: string) => {
   try {
-    return await makeServerRequest(`recipes/${recipeId}`);
+    return await makeServerRequest<Recipe>(`recipes/${recipeId}`);
   } catch (e) {
     const errorMessage =
       e instanceof Error ? e.message : "Unknown error occurred";
@@ -63,7 +61,7 @@ const getLatestRecipes = async (): Promise<Recipe[]> => {
 
 const uploadRecipe = async (recipeData: Recipe) => {
   try {
-    return await makeServerRequest("recipes", {
+    return await makeServerRequest<Recipe>("recipes", {
       method: "POST",
       body: JSON.stringify(recipeData),
       headers: { "Content-Type": "application/json" },
@@ -149,7 +147,7 @@ const updateFavorites = async (
 
 const searchRecipes = async (searchinput: string | null) => {
   try {
-    return await makeServerRequest(`recipes?q=${searchinput}`);
+    return await makeServerRequest<Recipe[]>(`recipes?q=${searchinput}`);
   } catch (e) {
     const errorMessage =
       e instanceof Error ? e.message : "Unknown error occurred";

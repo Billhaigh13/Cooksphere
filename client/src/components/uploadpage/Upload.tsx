@@ -7,6 +7,8 @@ import { FileUpload } from "./FileUpload";
 import { AuthContext } from "../../App";
 import { FormState, Recipe } from "../../types/types";
 
+//TODO: upload not working, needs fixing
+
 interface ErrorState {
   name: boolean;
   ingredients: boolean;
@@ -145,12 +147,14 @@ export function Upload() {
   }
 
   async function handleUpload(event: any) {
+    console.log("handleupload fired");
     event.preventDefault();
 
     //! Validation
     // if (validateFormData()) return;
 
     if (formState.imageFile) {
+      console.log("first if block")
       const imageUrl = await handleImageUpload(formState.imageFile);
 
       if (!imageUrl) {
@@ -171,6 +175,7 @@ export function Upload() {
         setNumOfIngredients(1);
         setNumOfInstructions(1);
         setFormKey((prevKey) => prevKey + 1);
+        console.log("upload complete")
       }
     }
   }

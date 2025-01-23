@@ -9,11 +9,11 @@ describe("Upload component test", () => {
   test("Should correctly render the upload component", () => {
     render(
       <BrowserRouter>
-      <AuthContext.Provider value={mocks.currentUser}>
-        <Upload />
-      </AuthContext.Provider>
+        <AuthContext.Provider value={mocks.currentUser}>
+          <Upload />
+        </AuthContext.Provider>
       </BrowserRouter>
     );
     expect(screen.getByText("Upload Recipe")).toBeInTheDocument();
-  })
-})
+  });
+});

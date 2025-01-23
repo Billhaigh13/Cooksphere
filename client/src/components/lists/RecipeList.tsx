@@ -33,8 +33,12 @@ export function RecipeList({
               </Link>
             </>
           ))}
+            </>
+          ))}
         </div>
       </div>
     </>
   );
+}
+
 }

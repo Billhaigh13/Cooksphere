@@ -71,79 +71,79 @@ export function Filter({ recipes, updateFilter }: FilterProps) {
   }
   return (
     <>
-      <div className='w-1/4 mt-12 mb-4 mr-4 p-4  bg-brown rounded-lg flex flex-col gap-4'>
-        <h3 className='text-xl font-semibold text-white'>Filters</h3>
+      <div className="w-1/4 mt-12 mb-4 mr-4 p-4  bg-brown rounded-lg flex flex-col gap-4">
+        <h3 className="text-xl font-semibold text-white">Filters</h3>
         <button
-          className='bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit mx-auto'
+          className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit mx-auto"
           onClick={resetFilter}
         >
           Reset filter
         </button>
-        <div className='bg-lightbeige p-2 rounded-md'>
-          <h4 className='text-lg font-medium'>Tags</h4>
-          <ul className='flex flex-col'>{tagElements}</ul>
+        <div className="bg-lightbeige p-2 rounded-md">
+          <h4 className="text-lg font-medium">Tags</h4>
+          <ul className="flex flex-col">{tagElements}</ul>
         </div>
 
-        <div className='bg-lightbeige p-2 rounded-md'>
-          <h4 className='text-lg font-medium'>Duration</h4>
-          <ul className='flex flex-col'>
+        <div className="bg-lightbeige p-2 rounded-md">
+          <h4 className="text-lg font-medium">Duration</h4>
+          <ul className="flex flex-col">
             <Checkbox
-              id='time-quick'
-              value='quick'
-              text='Quick (Under 30 Minutes)'
+              id="time-quick"
+              value="quick"
+              text="Quick (Under 30 Minutes)"
               handleChange={handleChange}
             />
             <Checkbox
-              id='time-moderate'
-              value='moderate'
-              text='Moderate (30-60 Minutes)'
+              id="time-moderate"
+              value="moderate"
+              text="Moderate (30-60 Minutes)"
               handleChange={handleChange}
             />
             <Checkbox
-              id='time-intensive'
-              value='intensive'
-              text='Time-Intensive (Over 60 Minutes)'
+              id="time-intensive"
+              value="intensive"
+              text="Time-Intensive (Over 60 Minutes)"
               handleChange={handleChange}
             />
           </ul>
         </div>
 
-        <div className='bg-lightbeige p-2 rounded-md'>
-          <h4 className='text-lg font-medium'>Rating</h4>
+        <div className="bg-lightbeige p-2 rounded-md">
+          <h4 className="text-lg font-medium">Rating</h4>
           <fieldset>
             <Radiobutton
-              id='ratings-all'
-              name='ratings'
-              value='all'
-              text='All recipes'
+              id="ratings-all"
+              name="ratings"
+              value="all"
+              text="All recipes"
               handleChange={handleChange}
             />
             <Radiobutton
-              id='ratings-1'
-              name='ratings'
-              value='1'
-              text='1 Star or more'
+              id="ratings-1"
+              name="ratings"
+              value="1"
+              text="1 Star or more"
               handleChange={handleChange}
             />
             <Radiobutton
-              id='ratings-2'
-              name='ratings'
-              value='2'
-              text='2 Stars or more'
+              id="ratings-2"
+              name="ratings"
+              value="2"
+              text="2 Stars or more"
               handleChange={handleChange}
             />
             <Radiobutton
-              id='ratings-3'
-              name='ratings'
-              value='3'
-              text='3 Stars or more'
+              id="ratings-3"
+              name="ratings"
+              value="3"
+              text="3 Stars or more"
               handleChange={handleChange}
             />
             <Radiobutton
-              id='ratings-4'
-              name='ratings'
-              value='4'
-              text='4 Stars or more'
+              id="ratings-4"
+              name="ratings"
+              value="4"
+              text="4 Stars or more"
               handleChange={handleChange}
             />
           </fieldset>

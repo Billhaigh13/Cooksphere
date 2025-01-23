@@ -9,13 +9,13 @@ export type Recipe = {
   cookingTimeInMinutes: number;
   rating: number;
   reviews: Review[];
-}
+};
 
 export type Ingredient = {
   ingredient: string;
   measure: string;
   _id: string;
-}
+};
 
 export type User = {
   firstname: string;
@@ -25,7 +25,7 @@ export type User = {
   password: string;
   favoriteRecipes: Recipe[];
   uploadedRecipes: Recipe[];
-}
+};
 
 export type Review = {
   author: string;

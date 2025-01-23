@@ -9,11 +9,11 @@ describe("RecipeList component test", () => {
   test("Should correctly render the RecipeList component", () => {
     render(
       <BrowserRouter>
-      <AuthContext.Provider value={mocks.currentUser}>
-        <RecipeList title={'New Added Recipes'} recipes={mocks.recipes}/>
-      </AuthContext.Provider>
+        <AuthContext.Provider value={mocks.currentUser}>
+          <RecipeList title={"New Added Recipes"} recipes={mocks.recipes} />
+        </AuthContext.Provider>
       </BrowserRouter>
-    )
+    );
     expect(screen.getByText("New Added Recipes")).toBeInTheDocument();
-  })
-})
+  });
+});

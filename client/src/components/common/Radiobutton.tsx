@@ -6,13 +6,28 @@ interface RadioProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Radiobutton ({id, name, value, text, handleChange}: RadioProps) {
+export function Radiobutton({
+  id,
+  name,
+  value,
+  text,
+  handleChange,
+}: RadioProps) {
   return (
     <>
       <div>
-          <input type="radio" id={id} name={name} value={value} onChange={(event) => handleChange(event)} className="accent-softyellow"/>
-          <label htmlFor={id} className='ml-2'>{text}</label>
+        <input
+          type="radio"
+          id={id}
+          name={name}
+          value={value}
+          onChange={(event) => handleChange(event)}
+          className="accent-softyellow"
+        />
+        <label htmlFor={id} className="ml-2">
+          {text}
+        </label>
       </div>
     </>
   );
-};
+}

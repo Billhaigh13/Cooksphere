@@ -12,5 +12,3 @@ export function sortRecipes(recipes: Recipe[], sorting: string): Recipe[] {
   }
   return recipes;
 }
-
-//TODO: this currently will throw an error if provided only recipes, should return recipes

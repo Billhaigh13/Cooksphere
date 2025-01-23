@@ -9,8 +9,6 @@ import { sortRecipes } from "../../utils/sortRecipes";
 import { categories } from "../../utils/imagePaths";
 import { FilterState, Recipe } from "../../types/types";
 
-//TODO: Write integration test for category page
-
 export function CategoryPage() {
   const { category } = useParams<{ category: string }>();
 

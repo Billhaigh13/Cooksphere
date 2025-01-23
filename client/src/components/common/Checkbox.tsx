@@ -10,14 +10,14 @@ export function Checkbox({ id, value, text, handleChange }: CheckboxProps) {
     <>
       <div>
         <input
-          type='checkbox'
+          type="checkbox"
           id={id}
           name={id}
           value={value}
           onChange={(event) => handleChange(event)}
-          className='accent-softyellow'
+          className="accent-softyellow"
         />
-        <label htmlFor={id} className='ml-2'>
+        <label htmlFor={id} className="ml-2">
           {text}
         </label>
       </div>

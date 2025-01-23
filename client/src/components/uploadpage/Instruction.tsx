@@ -7,10 +7,10 @@ interface InstructionProps {
 export function Instruction({ number, handleChange }: InstructionProps) {
   return (
     <>
-      <div className='flex flex-col gap-1'>
+      <div className="flex flex-col gap-1">
         <label
           htmlFor={"instruction-" + number}
-          className='text-white leading-4 text-sm'
+          className="text-white leading-4 text-sm"
         >
           {"Step " + number}
         </label>
@@ -18,7 +18,7 @@ export function Instruction({ number, handleChange }: InstructionProps) {
           id={"instruction-" + number}
           name={"instruction-" + number}
           rows={3}
-          className='outline-none rounded-md px-1'
+          className="outline-none rounded-md px-1"
           onChange={handleChange}
         ></textarea>
       </div>

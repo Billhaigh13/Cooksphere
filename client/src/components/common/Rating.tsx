@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import { StarSvg } from "./StarSvg";
-import { StarSvg } from "./StarSvg";
 
 export interface RatingProps {
   rating: number;
   type: "rate" | "display";
   setRating: (rating: number) => void;
-  setRating: (rating: number) => void;
 }
 
-export function Rating({ rating, type, setRating }: RatingProps) {
 export function Rating({ rating, type, setRating }: RatingProps) {
   const [hoveredStar, setHoveredStar] = useState(-1);
   const [selectedStar, setSelectedStar] = useState(rating);
 
   useEffect(() => setSelectedStar(rating), [rating]);
-  function getPercentage(index: number) {
   function getPercentage(index: number) {
     if (index < Math.floor(rating)) {
       return 100;
@@ -23,11 +19,9 @@ export function Rating({ rating, type, setRating }: RatingProps) {
       return 0;
     } else {
       return (rating - Math.floor(rating)) * 100;
-      return (rating - Math.floor(rating)) * 100;
     }
   }
 
-  function handleChange(newRating: number): void {
   function handleChange(newRating: number): void {
     setSelectedStar(newRating);
     setRating(newRating);
@@ -85,10 +79,6 @@ export function Rating({ rating, type, setRating }: RatingProps) {
             })}
         </div>
       )}
-      )}
     </>
-  );
-}
-
   );
 }

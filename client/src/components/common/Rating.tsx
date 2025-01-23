@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { StarSvg } from "./StarSvg";
 
-interface RatingProps {
+export interface RatingProps {
   rating: number;
   type: "rate" | "display";
   setRating: (rating: number) => void;

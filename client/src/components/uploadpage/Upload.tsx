@@ -89,6 +89,7 @@ export function Upload() {
 
   // TODO: refactor
   function handleChange(event: any) {
+    setUploadSuccessState(false);
     const { name, value } = event.target;
     setFormState((prevState) => {
       if (name.includes("ingredient") || name.includes("measure")) {
@@ -162,7 +163,6 @@ export function Upload() {
         const imageUrl = await handleImageUpload(formState.imageFile);
 
         if (!imageUrl) {
-          //TODO show error to user
           console.log("Error uploading recipe");
           return;
         }
@@ -182,7 +182,6 @@ export function Upload() {
         }
       }
     }
-    setUploadSuccessState(false);
   }
 
   function formatFormData(data: FormState): UploadRecipe {
@@ -230,9 +229,6 @@ export function Upload() {
     };
   }
 
-  //TODO: validation incomplete
-  //TODO: FEAT: complete form validation
-  //TODO: Form validation made no sense, needs to be re-worked
   function validateFormData() {
     const newErrorState: ErrorState = errorState;
 
@@ -445,6 +441,3 @@ export function Upload() {
     </>
   );
 }
-
-//TODO: TEST add unit tests for upload functions
-//TODO: TEST add integration tests for upload

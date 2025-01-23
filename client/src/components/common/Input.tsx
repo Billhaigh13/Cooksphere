@@ -39,5 +39,4 @@ export function Input({
       </div>
     </>
   );
-  // a72d29
 }

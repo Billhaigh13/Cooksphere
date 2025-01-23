@@ -34,10 +34,10 @@ describe('Popup and Upload Form', () => {
       cy.get('textarea#instruction-1').should('have.value', 'Preheat the oven.');
     });
 
-    it.only('should handle file upload', () => {
+    it('should handle file upload', () => {
       const fileName = 'test-image.jpg';
       cy.get('input[type="file"]').attachFile(fileName);
-      cy.get('input[type="file"]')
+      cy.get('input[name="name"]').type('Test Recipe')
       cy.contains('Please select an image.').should('not.exist');
     });
 
@@ -55,6 +55,6 @@ describe('Popup and Upload Form', () => {
       const fileName = 'test-image.jpg'; 
       cy.get('input[type="file"]').attachFile(fileName);
       cy.get('form').submit();
-      cy.contains('Recipe uploaded successfully').should('be.visible'); 
+      cy.contains('Recipe uploaded successfully').scrollIntoView().should('be.visible'); 
     });
   });

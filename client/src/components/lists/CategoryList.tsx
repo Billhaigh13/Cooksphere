@@ -10,9 +10,12 @@ export function CategoryList({
 }) {
   return (
     <>
-      <div className="px-8 py-4 bg-brown rounded-lg">
-        <h2 className="text-2xl font-bold mb-2 text-white">{title}</h2>
-        <div className="flex gap-4 overflow-x-scroll scrollbar-none">
+      <div
+        className='px-8 py-4 bg-brown rounded-lg'
+        data-testid='category_list'
+      >
+        <h2 className='text-2xl font-bold mb-2 text-white'>{title}</h2>
+        <div className='flex gap-4 overflow-x-scroll scrollbar-none'>
           {listItems.map((listItem) => (
             <>
               <Link
@@ -21,14 +24,14 @@ export function CategoryList({
               >
                 <div
                   key={listItem._id}
-                  className="min-w-56 cursor-pointer bg-lightbeige rounded-lg shadow_2 p-1"
+                  className='min-w-56 cursor-pointer bg-lightbeige rounded-lg shadow_2 p-1'
                 >
                   <img
                     src={listItem.image}
                     alt={listItem.name}
-                    className="w-56 h-56 rounded-lg"
+                    className='w-56 h-56 rounded-lg'
                   />
-                  <span className="text-lg px-2">{listItem.name}</span>
+                  <span className='text-lg px-2'>{listItem.name}</span>
                 </div>
               </Link>
             </>

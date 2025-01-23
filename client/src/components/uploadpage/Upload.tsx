@@ -5,7 +5,7 @@ import { Instruction } from "./Instruction";
 import { uploadImage, uploadRecipe, updateUploaded } from "../../ApiClient";
 import { FileUpload } from "./FileUpload";
 import { AuthContext } from "../../App";
-import { FormState, Recipe, UploadRecipe } from "../../types/types";
+import { FormState, UploadRecipe } from "../../types/types";
 
 interface ErrorState {
   name: boolean;
@@ -50,8 +50,12 @@ export function Upload() {
 
   const [formState, setFormState] = useState(initialState);
   const [errorState, setErrorState] = useState(initialErrorState);
+  const [uploadSuccess, setUploadSuccessState] = useState(false);
 
   useEffect(() => {}, [errorState]);
+  useEffect(() => {
+    validateFormData();
+  }, []);
 
   function addIngredient() {
     setNumOfIngredients((prev) => prev + 1);
@@ -83,6 +87,7 @@ export function Upload() {
   }
 
   function handleChange(event: any) {
+    setUploadSuccessState(false);
     const { name, value } = event.target;
     setFormState((prevState) => {
       if (name.includes("ingredient") || name.includes("measure")) {
@@ -112,9 +117,10 @@ export function Upload() {
           },
         };
       } else if (name === "imageFile") {
+        const file = event.target.files[0];
         return {
           ...prevState,
-          [name]: event.target.files[0],
+          [name]: file,
         };
       }
 
@@ -149,13 +155,9 @@ export function Upload() {
     event.preventDefault();
 
     //! Validation
-    // if (validateFormData()) return;
     const isValid = validateFormData();
-    console.log(isValid);
     if (isValid) {
-      console.log("form valid");
       if (formState.imageFile) {
-        console.log("formstate image file valid");
         const imageUrl = await handleImageUpload(formState.imageFile);
 
         if (!imageUrl) {
@@ -166,10 +168,7 @@ export function Upload() {
           ...formState,
           imageUrl: imageUrl,
         };
-        console.log("updated form state", updatedFormState);
-
         const formatted = formatFormData(updatedFormState);
-        console.log("formatted", formatted);
         const recipe = await uploadRecipe(formatted);
         if (currentUser) {
           await updateUploaded(currentUser, recipe);
@@ -177,6 +176,7 @@ export function Upload() {
           setNumOfIngredients(1);
           setNumOfInstructions(1);
           setFormKey((prevKey) => prevKey + 1);
+          setUploadSuccessState(true);
         }
       }
     }
@@ -244,14 +244,19 @@ export function Upload() {
       formState.ingredients["ingredient-1"].length > 0 &&
       formState.ingredients["measure-1"].length > 0
     ) {
-      newErrorState.ingredients = true;
-    } else {
-      newErrorState.ingredients = false;
-    }
-    if (formState.category.length > 0) {
-      newErrorState.category = true;
-    } else {
-      newErrorState.category = false;
+      if (
+        formState.ingredients["ingredient-1"].length > 0 &&
+        formState.ingredients["measure-1"].length > 0
+      ) {
+        newErrorState.ingredients = true;
+      } else {
+        newErrorState.ingredients = false;
+      }
+      if (formState.category.length > 0) {
+        newErrorState.category = true;
+      } else {
+        newErrorState.category = false;
+      }
     }
     if (formState.imageFile !== null) {
       newErrorState.imageFile = true;
@@ -263,23 +268,34 @@ export function Upload() {
       formState.tags["tag-2"].length > 0 &&
       formState.tags["tag-3"].length > 0
     ) {
-      newErrorState.tags = true;
-    } else {
-      newErrorState.tags = false;
-    }
-    if (
-      formState.cookingTime.hours.length > 0 ||
-      formState.cookingTime.minutes.length > 0
-    ) {
-      newErrorState.cookingTime = true;
-    } else {
-      newErrorState.cookingTime = false;
-    }
-    setErrorState(newErrorState);
-    if (!Object.values(newErrorState).includes(false)) {
-      return true;
-    } else {
-      return false;
+      if (
+        formState.tags["tag-1"].length > 0 &&
+        formState.tags["tag-2"].length > 0 &&
+        formState.tags["tag-3"].length > 0
+      ) {
+        newErrorState.tags = true;
+      } else {
+        newErrorState.tags = false;
+      }
+      if (
+        formState.cookingTime.hours.length > 0 ||
+        formState.cookingTime.minutes.length > 0
+      ) {
+        if (
+          formState.cookingTime.hours.length > 0 ||
+          formState.cookingTime.minutes.length > 0
+        ) {
+          newErrorState.cookingTime = true;
+        } else {
+          newErrorState.cookingTime = false;
+        }
+        setErrorState(newErrorState);
+        if (!Object.values(newErrorState).includes(false)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   }
 
@@ -288,22 +304,22 @@ export function Upload() {
       <form
         key={formKey}
         onSubmit={handleUpload}
-        className="flex flex-col gap-4"
+        className='flex flex-col gap-4'
       >
-        <h2 className="text-2xl font-bold font-fira">Upload Recipe</h2>
+        <h2 className='text-2xl font-bold font-fira'>Upload Recipe</h2>
         {/* name */}
-        <div className="bg-brown rounded-md p-2 w-fit">
+        <div className='bg-brown rounded-md p-2 w-fit'>
           <Input
-            id="recipe-name"
-            name="name"
+            id='recipe-name'
+            name='name'
             value={formState.name}
-            text="Name:"
+            text='Name:'
             error={errorState.name}
             handleChange={handleChange}
           />
         </div>
         {/* ingredients */}
-        <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
+        <div className='flex flex-col gap-4 bg-brown rounded-md p-2'>
           {Array.from({ length: numOfIngredients }).map((elem, index) => (
             <Ingredient
               key={index}
@@ -314,15 +330,15 @@ export function Upload() {
             />
           ))}
           <button
-            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+            className='bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
             onClick={addIngredient}
-            type="button"
+            type='button'
           >
             Add ingredient
           </button>
         </div>
         {/* instructions */}
-        <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
+        <div className='flex flex-col gap-4 bg-brown rounded-md p-2'>
           {Array.from({ length: numOfInstructions }).map((elem, index) => (
             <>
               <Instruction
@@ -333,86 +349,86 @@ export function Upload() {
             </>
           ))}
           <button
-            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+            className='bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
             onClick={addInstruction}
-            type="button"
+            type='button'
           >
             Add instruction
           </button>
           {!errorState.instructions && (
-            <span className="text-error">Instructions are required.</span>
+            <span className='text-error'>Instructions are required.</span>
           )}
         </div>
         {/* cooking time */}
-        <div className="flex items-center gap-4 bg-brown rounded-md p-2">
-          <span className="text-white w-32">Cooking time</span>
+        <div className='flex items-center gap-4 bg-brown rounded-md p-2'>
+          <span className='text-white w-32'>Cooking time</span>
           <Input
-            id="time-hours"
-            name="hours"
+            id='time-hours'
+            name='hours'
             value={formState.cookingTime.hours}
-            text="Hours:"
+            text='Hours:'
             handleChange={handleChange}
             error={errorState.cookingTime}
           />
           <Input
-            id="time-minutes"
-            name="minutes"
+            id='time-minutes'
+            name='minutes'
             value={formState.cookingTime.minutes}
-            text="Minutes:"
+            text='Minutes:'
             handleChange={handleChange}
             error={errorState.cookingTime}
           />
           {!errorState.cookingTime && (
-            <span className="text-error">Cooking time is required.</span>
+            <span className='text-error'>Cooking time is required.</span>
           )}
         </div>
         {/* category */}
-        <div className="bg-brown rounded-md p-2">
-          <label htmlFor="category" className="text-white">
+        <div className='bg-brown rounded-md p-2'>
+          <label htmlFor='category' className='text-white'>
             Category
           </label>
           <select
-            name="category"
-            id="category"
-            className="px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow"
+            name='category'
+            id='category'
+            className='px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow'
             onChange={handleChange}
           >
             <option disabled selected hidden>
               -- Select a category --
             </option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Pasta">Pasta</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Vegan">Vegan</option>
+            <option value='Breakfast'>Breakfast</option>
+            <option value='Pasta'>Pasta</option>
+            <option value='Dessert'>Dessert</option>
+            <option value='Vegan'>Vegan</option>
           </select>
           {!errorState.category && (
-            <span className="text-error ml-4">Category is required.</span>
+            <span className='text-error ml-4'>Category is required.</span>
           )}
         </div>
         {/* tags */}
-        <div className="flex items-center gap-4 bg-brown rounded-md p-2">
-          <span className="text-white">Tags</span>
+        <div className='flex items-center gap-4 bg-brown rounded-md p-2'>
+          <span className='text-white'>Tags</span>
           <Input
-            id="tag-1"
-            name="tag-1"
+            id='tag-1'
+            name='tag-1'
             value={formState.tags["tag-1"]}
-            text="Tag 1:"
+            text='Tag 1:'
             handleChange={handleChange}
             error={errorState.tags}
           />
           <Input
-            id="tag-2"
-            name="tag-2"
+            id='tag-2'
+            name='tag-2'
             value={formState.tags["tag-2"]}
-            text="Tag 2:"
+            text='Tag 2:'
             handleChange={handleChange}
             error={errorState.tags}
           />
           <Input
-            id="tag-3"
-            name="tag-3"
+            id='tag-3'
+            name='tag-3'
             value={formState.tags["tag-3"]}
-            text="Tag 3:"
+            text='Tag 3:'
             handleChange={handleChange}
             error={errorState.tags}
           />
@@ -425,11 +441,16 @@ export function Upload() {
         />
 
         <button
-          className="bg-orange text-white hover:bg-deeporange gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-          type="submit"
+          className='bg-orange text-white hover:bg-deeporange gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit'
+          type='submit'
         >
           Upload
         </button>
+        {uploadSuccess && (
+          <p className='text-green-600' role='alert'>
+            Recipe uploaded successfully
+          </p>
+        )}
       </form>
     </>
   );

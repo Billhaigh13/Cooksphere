@@ -30,7 +30,7 @@ export function Rating({ rating, type, setRating }: RatingProps) {
   return (
     <>
       {type === "rate" ? (
-        <div className="flex">
+        <div className='flex' data-testid='rating'>
           {/* i got this dynamic star rating from this blog post: https://dev.to/kartikbudhraja/creating-a-dynamic-star-rating-system-in-react-2c8 */}
           {Array(5)
             .fill(0)
@@ -40,14 +40,15 @@ export function Rating({ rating, type, setRating }: RatingProps) {
                 <label key={index}>
                   <input
                     key={index}
-                    type="radio"
-                    name="rating"
-                    className="hidden"
+                    type='radio'
+                    name='rating'
+                    className='hidden'
                     value={currentRating}
                     onChange={() => handleChange(currentRating)}
                   />
                   <span
-                    className="w-8 h-8 text-3xl hover:text-softyellow"
+                    data-testid={`rating_star_${index}`}
+                    className='w-8 h-8 text-3xl hover:text-softyellow'
                     style={{
                       color:
                         currentRating <= (hoveredStar || selectedStar)
@@ -64,7 +65,7 @@ export function Rating({ rating, type, setRating }: RatingProps) {
             })}
         </div>
       ) : (
-        <div className="flex">
+        <div className='flex'>
           {Array(5)
             .fill(0)
             .map((elem, index) => {

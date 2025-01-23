@@ -41,7 +41,6 @@ const initialErrorState: ErrorState = {
   imageFile: true,
 };
 
-// ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
 export function Upload() {
   const currentUser = useContext(AuthContext);
 

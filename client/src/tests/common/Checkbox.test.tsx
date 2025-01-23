@@ -1,9 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, test, expect, vi } from "vitest";
-import { Checkbox } from "./../../components/common/Checkbox"
+import { Checkbox } from "./../../components/common/Checkbox";
 
 describe("Checkbox Component", () => {
-  const setup = (props: Partial<React.ComponentProps<typeof Checkbox>> = {}) => {
+  const setup = (
+    props: Partial<React.ComponentProps<typeof Checkbox>> = {}
+  ) => {
     const defaultProps = {
       id: "test-checkbox",
       value: "checkbox-value",
@@ -19,7 +21,9 @@ describe("Checkbox Component", () => {
     setup();
 
     expect(screen.getByLabelText(/check this box/i)).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: /check this box/i })).not.toBeChecked();
+    expect(
+      screen.getByRole("checkbox", { name: /check this box/i })
+    ).not.toBeChecked();
   });
 
   test("should call handleChange when the checkbox is clicked", () => {
@@ -30,19 +34,23 @@ describe("Checkbox Component", () => {
     fireEvent.click(checkbox);
 
     expect(handleChange).toHaveBeenCalledTimes(1);
-    expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({
-      target: expect.objectContaining({
-        checked: true,
-      }),
-    }));
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          checked: true,
+        }),
+      })
+    );
 
     fireEvent.click(checkbox); // Toggle off
     expect(handleChange).toHaveBeenCalledTimes(2);
-    expect(handleChange).toHaveBeenCalledWith(expect.objectContaining({
-      target: expect.objectContaining({
-        checked: false,
-      }),
-    }));
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          checked: false,
+        }),
+      })
+    );
   });
 
   test("should apply the correct class to the checkbox", () => {

@@ -21,7 +21,9 @@ describe("Input Component", () => {
     setup();
 
     expect(screen.getByLabelText(/enter your username/i)).toBeInTheDocument();
-    expect(screen.getByRole("textbox", { name: /enter your username/i })).toHaveValue("");
+    expect(
+      screen.getByRole("textbox", { name: /enter your username/i })
+    ).toHaveValue("");
   });
 
   test("should display error message when error is false", () => {
@@ -33,7 +35,9 @@ describe("Input Component", () => {
   test("should not display error message when error is true", () => {
     setup({ error: true });
 
-    expect(screen.queryByText(/username is required\./i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/username is required\./i)
+    ).not.toBeInTheDocument();
   });
 
   test("should apply the correct class when error is true", () => {

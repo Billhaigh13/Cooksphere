@@ -58,7 +58,7 @@ export function Profile() {
           )}
         </div>
         <div className='flex flex-col gap-4'>
-          <div className='bg-brown pt-4 rounded-lg'>
+          <div className='bg-brown pt-4 rounded-lg' data-testid='fav_recipes'>
             <h2 className='text-2xl font-bold text-white px-8 leading-6'>
               Favorite Recipes
             </h2>

@@ -1,6 +1,8 @@
+import { ChangeEvent } from "react";
+
 interface FileUploadProps {
   error: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   value?: string;
 }
 

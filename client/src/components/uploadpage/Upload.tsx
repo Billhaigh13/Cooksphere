@@ -51,8 +51,12 @@ export function Upload() {
 
   const [formState, setFormState] = useState(initialState);
   const [errorState, setErrorState] = useState(initialErrorState);
+  const [uploadSuccess, setUploadSuccessState] = useState(false);
 
   useEffect(() => {}, [errorState]);
+  useEffect(() => {
+    validateFormData();
+  }, []);
 
   function addIngredient() {
     setNumOfIngredients((prev) => prev + 1);
@@ -114,9 +118,10 @@ export function Upload() {
           },
         };
       } else if (name === "imageFile") {
+        const file = event.target.files[0];
         return {
           ...prevState,
-          [name]: event.target.files[0],
+          [name]: file,
         };
       }
 
@@ -148,17 +153,12 @@ export function Upload() {
   }
 
   async function handleUpload(event: any) {
-    console.log("handleupload fired");
     event.preventDefault();
 
     //! Validation
-    // if (validateFormData()) return;
     const isValid = validateFormData();
-    console.log(isValid);
     if (isValid) {
-      console.log("form valid");
       if (formState.imageFile) {
-        console.log("formstate image file valid");
         const imageUrl = await handleImageUpload(formState.imageFile);
 
         if (!imageUrl) {
@@ -170,10 +170,7 @@ export function Upload() {
           ...formState,
           imageUrl: imageUrl,
         };
-        console.log("updated form state", updatedFormState);
-
         const formatted = formatFormData(updatedFormState);
-        console.log("formatted", formatted);
         const recipe = await uploadRecipe(formatted);
         if (currentUser) {
           await updateUploaded(currentUser, recipe);
@@ -181,9 +178,11 @@ export function Upload() {
           setNumOfIngredients(1);
           setNumOfInstructions(1);
           setFormKey((prevKey) => prevKey + 1);
+          setUploadSuccessState(true);
         }
       }
     }
+    setUploadSuccessState(false);
   }
 
   function formatFormData(data: FormState): UploadRecipe {
@@ -437,6 +436,11 @@ export function Upload() {
         >
           Upload
         </button>
+        {uploadSuccess && (
+          <p className='text-green-600' role='alert'>
+            Recipe uploaded successfully
+          </p>
+        )}
       </form>
     </>
   );

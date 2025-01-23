@@ -60,6 +60,13 @@ describe('Profile Page Tests', () => {
     cy.get('[data-testid="popup"]').should('not.exist'); 
   });
 
+  it('should not close the popup when clicking inside the content', () => {
+    cy.get('button').contains('Upload Recipe').click();
+    cy.get('[data-testid="popup"]').should('be.visible');
+    cy.get('[data-testid="popup"] > div').click();
+    cy.get('[data-testid="popup"]').should('be.visible');
+  })
+
   it('should navigate to the correct recipe page when clicking on a recipe', () => {
     cy.get('[data-testid="fav_recipes"]')
       .children()
